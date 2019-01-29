@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>极客学院网络爬虫</title>
+</head>
+<body>
+    <div class="topic"><a href="www.jike.com/welcome.html">欢迎参加学习爬虫学习</a>
+        <div class="list">
+            <ul>
+                <li><a href="www.jike.com/1.html">这是第一条</a></li>
+                <li><a href="www.jike.com/2.html">这是第二条</a></li>
+                <li><a href="www.jike.com/3.html">这是第三条</a></li>
+            </ul>
+        </div>
+    </div>
+</body>
+</html>
