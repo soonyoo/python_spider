@@ -50,8 +50,6 @@ def find_a_text_ul():
         print(link)
 
 
-
-
 if __name__ == "__main__":
     # find_a_ul()
     # find_title()
