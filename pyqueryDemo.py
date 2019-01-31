@@ -1,6 +1,8 @@
 # coding=utf-8
 
+import re
 from pyquery import PyQuery as pq
+
 
 html = ''' <div class="wrap">
    <div id="container">
@@ -12,6 +14,13 @@ html = ''' <div class="wrap">
          <li class="item-0"><a href="link5.html">fifth item</a></li>
      </ul></div></div>'''
 
+tangshi_html = "<span><a href=\"https://so.gushiwen.org/shiwenv_45c396367f59.aspx\" target=\"_blank\">行宫</a>(元稹)</span>"
+
+tangshi_list = []
+
+global  current_poem
+current_poem = {}
+
 
 # 提取html代码段的li标签
 def get_html_li():
@@ -20,9 +29,10 @@ def get_html_li():
 
 
 # 从URL中解析html源码
-def get_html_from_url():
-    doc = pq(url='http://www.baidu.com', encoding="utf-8")  # 增加encoding="utf-8"，防止中文乱码
-    print(doc('head'))
+def get_html_from_url(url):
+    doc = pq(url=url, encoding="utf-8")  # 增加encoding="utf-8"，防止中文乱码
+    # print(doc('head'))
+    return doc
 
 
 # 读取文件
@@ -103,6 +113,46 @@ def get_html_text():
     print(htm)
 
 
+def get_tangshi_html():
+    pass
+    # doc = pq(tangshi_html)
+    # span = doc('span').text()
+    # # a = doc('span a')
+    # matchObj = re.match(r'(.*)\((.*)\)', str(span))
+    # # print(matchObj.group(1))
+    # # print(matchObj.group(2))
+    # # print(span.text())
+    # current_poem = {}
+    # if matchObj:
+    #     current_poem["title"] = matchObj.group(1)
+    #     current_poem["author"] = matchObj.group(2)
+    #     current_poem["url"] =  a.attr.href
+    #     tangshi_list.append(current_poem)
+    #     current_poem = {}
+    # return tangshi_list
+
+
+def get_tangshi_300():
+    current_poem = {}
+    doc = get_html_from_url('http://www.gushiwen.org/gushi/tangshi.aspx')
+    spans = doc('span').items()  # .items()方法，返回一个迭代对象。class 'generator'
+    for span in spans:
+        # 解析出作者
+        author = re.search('</a>(.*?)</span>', str(span)).group(1)
+        current_poem["author"] = author.replace('(', '').replace(')', '')  # 替换()
+        # 1解析a标签
+        # 1.1 解析出标题
+        a = span('span a')
+        current_poem["title"] = a.text()
+        # 1.2 解析出标题
+        current_poem["url"] = a.attr.href
+
+        # 加入数组
+        tangshi_list.append(current_poem)
+        # 清空对象，进入下次循环赋值
+        current_poem = {}
+    return tangshi_list
+
 
 if __name__ == '__main__':
     # get_html_li()
@@ -114,4 +164,12 @@ if __name__ == '__main__':
     # get_html_from_parents()
     # get_html_from_brother()
     # get_html_attribute()
-    get_html_text()
+    # get_html_text()
+    # get_tangshi_html()
+    # get_tangshi_300()
+    # print(tangshi_list)
+
+    lists = get_tangshi_300()
+    for i in range(len(lists)):
+        # print('序号：', i, '值：', lists[i])
+        print('标题: %(title)s\t作者：%(author)s\tURL: %(url)s' % (lists[i]))
