@@ -3,7 +3,7 @@ import requests
 import time
 
 
-#全局变量
+# 全局变量
 global telList
 telList = []
 

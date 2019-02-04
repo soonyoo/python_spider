@@ -1,7 +1,7 @@
 # coding=utf-8
 
 import re
-from pyquery import PyQuery as pq
+from pyquery import PyQuery as pQ
 
 
 html = ''' <div class="wrap">
@@ -18,19 +18,19 @@ tangshi_html = "<span><a href=\"https://so.gushiwen.org/shiwenv_45c396367f59.asp
 
 tangshi_list = []
 
-global  current_poem
-current_poem = {}
+# global current_poem
+# current_poem = {}
 
 
 # 提取html代码段的li标签
 def get_html_li():
-    doc = pq(html)
+    doc = pQ(html)
     print(doc('li'))
 
 
 # 从URL中解析html源码
 def get_html_from_url(url):
-    doc = pq(url=url, encoding="utf-8")  # 增加encoding="utf-8"，防止中文乱码
+    doc = pQ(url=url, encoding="utf-8")  # 增加encoding="utf-8"，防止中文乱码
     # print(doc('head'))
     return doc
 
@@ -45,21 +45,21 @@ def read_file(file_name):
 
 # 从文件中解析html源码
 def get_html_from_file():
-    # doc = pq(filename='1.txt') 中文问题没解决
+    # doc = pq(filename='1.txt') 中文问题没解决,改为传统f.read()读取方法
     txt = read_file('1.txt')
-    doc = pq(txt)
-    print(doc('li'))
+    doc = pQ(txt)
+    print(doc('li'))  # 查找li元素
 
 
 # 基本CSS选择器
 def get_html_from_css_base():
-    doc = pq(html)
+    doc = pQ(html)
     print(doc('#container .list li'))
 
 
 # 从子元素中获取数据
 def get_html_from_son_element():
-    doc = pq(html)
+    doc = pQ(html)
     items = doc('.list')
     # print(items)
     # lis = items.find('li')  # find不要求是子元素，有在里面就可以
@@ -69,7 +69,7 @@ def get_html_from_son_element():
 
 # 父元素parent
 def get_html_from_parent():
-    doc = pq(html)
+    doc = pQ(html)
     items = doc('.list')
     container = items.parent('#container')
     print(container)
@@ -77,7 +77,7 @@ def get_html_from_parent():
 
 # 父元素parents
 def get_html_from_parents():
-    doc = pq(html)
+    doc = pQ(html)
     items = doc('.list')
     # parents = items.parents()
     # print(parents)  #  两个父节点都分别打出来
@@ -87,7 +87,7 @@ def get_html_from_parents():
 
 # 兄弟元素
 def get_html_from_brother():
-    doc = pq(html)
+    doc = pQ(html)
     items = doc('.list .item-0.active')
     li = items.siblings()
     print(li)
@@ -95,7 +95,7 @@ def get_html_from_brother():
 
 # 获取属性
 def get_html_attribute():
-    doc = pq(html)
+    doc = pQ(html)
     a = doc('.item-0.active a')
     print(a)
     print(a.attr('href'))
@@ -104,7 +104,7 @@ def get_html_attribute():
 
 # 获取文本
 def get_html_text():
-    doc = pq(html)
+    doc = pQ(html)
     a = doc('.item-0.active a')
     print(a)
     txt = a.text()  # a 标签内的文本，不包括html标签
