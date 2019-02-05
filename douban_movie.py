@@ -16,14 +16,16 @@ class DouBanMovie:
         self.now_play_info = {}
         self.url = 'https://movie.douban.com/cinema/nowplaying/guangzhou/'
         self.headers = {'referer': 'https://movie.douban.com/cinema/nowplaying/shaoyang/',
-        'User-Agent':'Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 '
-        '(KHTML, like Gecko) Chrome/71.0.3578.98 Safari/537.36'}
+                        'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 '
+                                      '(KHTML, like Gecko) Chrome/71.0.3578.98 Safari/537.36'}
 
+    # 获取html源码
     def get_html_from_url(self):
         response = requests.get(self.url, headers=self.headers)
         # print(response.text)
         return response.text
 
+    # 通过xpath获取网页源码相应节点数据
     def parse_douban(self):
         html = etree.HTML(self.get_html_from_url())
         # print(html)
