@@ -2,8 +2,44 @@
 ## 1. 类对象，类方法 例子
 ```python
 # game.py
-```
+# coding = utf-8
 
+
+class Game(object):
+    # 游戏最高分，类属性
+    top_score = 0
+
+    # 定义实例属性
+    def __init__(self, player_name):
+        self.player_name = player_name
+
+    # 定义静态方法,游戏说明
+    @staticmethod
+    def show_help():
+        print('帮助信息：让僵尸走进房间')
+
+    # 定义类方法
+    @classmethod
+    def show_top_score(cls):
+        print("游戏最高分是 %d" % cls.top_score)
+
+    # 定义实例方法
+    def start_game(self):
+        print('[%s] 开始游戏...' % self.player_name)
+
+
+if __name__ == '__main__':
+    # 1. 查看游戏帮助
+    Game.show_help()
+    # 2. 查看游戏最高分
+    Game.show_top_score()
+    # 3. 创建游戏对象，开始游戏
+    game = Game('小明')
+    game.start_game()
+    # 4. 游戏结束，查看游戏最高分
+    Game.show_top_score()
+
+```
 
 ## 2.单例设计模式
 
@@ -50,3 +86,217 @@
 ```python
 # 详见 singleton.py 中代码
 ```
+## 5.异常处理
+### 5.1 简单的捕获异常语法
+- 在程序开发中，如果 对某些代码的执行不能确定是否正确，可以增加 try(尝试) 来 捕获异常
+- 捕获异常最简单的语法格式：
+```python
+try:
+    pass # 尝试执行的代码
+except:
+    pass # 出现错误的处理
+```
+- 详见exceptDemo1.py 中代码
+```python
+# coding = utf-8
+try:
+    input_val = int(input('请输入数字：'))
+    print('您输入的是%d' % input_val)
+except:
+    print('wrong:您输入的不是数值类型')
+print('-'*30)
+```
+### 5.2 错误类型捕获
+- 在程序执行时，可能会遇到 不同类型的异常，并且需要 针对不同类型的异常，做出不同的响应，这个时候，就需要捕获错误类型了
+
+- 语法如下：
+```python
+#try:
+#    # 尝试执行的代码
+#    pass
+#except 错误类型1:
+#    # 针对错误类型1，对应的代码处理
+#    pass
+#except (错误类型2, 错误类型3):
+#    # 针对错误类型2 和 3，对应的代码处理
+#    pass
+#except Exception as result:
+#    print("未知错误 %s" % result)
+```
+- 当 Python 解释器 抛出异常 时，最后一行错误信息的第一个单词，就是错误类型
+- 输入非整数时Error
+```python
+#请输入数字：a
+#Traceback (most recent call last):
+#  File "D:/python/pycharmDemo/base/exceptDemo2.py", line 4, in <module>
+#    num = int(input('请输入数字：'))
+#ValueError: invalid literal for int() with base 10: 'a'
+#
+#Process finished with exit code 1
+```
+- 输入0时Error
+```python
+#请输入数字：0
+#Traceback (most recent call last):
+#  File "D:/python/pycharmDemo/base/exceptDemo2.py", line 6, in <module>
+#    result = 8 / num
+#ZeroDivisionError: division by zero
+#
+#Process finished with exit code 1
+```
+- 详见:exceptDemo2.py
+```python
+# coding = utf-8
+try:
+    # 1.提示输入一个整数
+    num = int(input('请输入数字：'))
+    # 2.使用8除以用户输入的整数并输出
+    result = 8/num
+    print(result)
+except ValueError:
+    print('wrong:输入的数值类型有误！请输入整数类型')
+except ZeroDivisionError:
+    print('wrong:除0错误！')
+```
+
+### 5.3 捕获未知错误
+- 在开发时，要预判到所有可能出现的错误，还是有一定难度的
+- 如果希望程序 无论出现任何错误，都不会因为 Python 解释器 抛出异常而被终止，可以再增加一个 except
+- 语法如下：
+```python
+#except Exception as result:
+#    print("未知错误 %s" % result)
+# result 是自定义的错误别名，可以修改为其他
+```
+- 详见exceptDemo3.py
+```python
+# coding = utf-8
+try:
+    # 1.提示输入一个整数
+    num = int(input('请输入数字：'))
+    # 2.使用8除以用户输入的整数并输出
+    result = 8/num
+    print(result)
+except ValueError:
+    print('wrong:输入的数值类型有误！请输入整数类型')
+except Exception as result:
+    print('wrong:错误信息：%s' % result)
+```
+### 5.4 异常捕获完整语法
+- 在实际开发中，为了能够处理复杂的异常情况，完整的异常语法如下：
+```python
+#try:
+#    # 尝试执行的代码
+#    pass
+#except 错误类型1:
+#    # 针对错误类型1，对应的代码处理
+#    pass
+#except 错误类型2:
+#    # 针对错误类型2，对应的代码处理
+#    pass
+#except (错误类型3, 错误类型4):
+#    # 针对错误类型3 和 4，对应的代码处理
+#    pass
+#except Exception as result:
+#    # 打印错误信息
+#    print(result)
+#else:
+#    # 没有异常才会执行的代码
+#    pass
+#finally:
+#    # 无论是否有异常，都会执行的代码
+#    print("无论是否有异常，都会执行的代码")
+```
+- else 只有在没有异常时才会执行的代码
+- finally 无论是否有异常，都会执行的代码
+- 详见exceptDemo4.py
+```python
+# coding = utf-8
+try:
+    # 1.提示输入一个整数
+    num = int(input('请输入数字：'))
+    # 2.使用8除以用户输入的整数并输出
+    result = 8/num
+    print(result)
+except ValueError:
+    print('wrong:输入的数值类型有误！请输入整数类型')
+except Exception as result:
+    print('wrong:获取未知错误：%s' % result)
+else:
+    print('没有异常才会执行的代码')
+finally:
+    print('无论是否有异常，都会执行的代码！')
+```
+
+### 5.5 异常的传递
+- 异常的传递 —— 当 函数/方法 执行 出现异常，会 将异常传递 给 函数/方法 的 调用一方
+- 如果 传递到主程序，仍然 没有异常处理，程序才会被终止
+- 在开发中，可以在主函数中增加 异常捕获
+- 而在主函数中调用的其他函数，只要出现异常，都会传递到主函数的 异常捕获 中
+- 这样就不需要在代码中(如每个方法中)，增加大量的 异常捕获，能够保证代码的整洁
+
+- 需求
+1. 定义函数 demo1() 提示用户输入一个整数并且返回
+2. 定义函数 demo2() 调用 demo1()
+3. 在主程序中调用 demo2()
+```python
+# coding = utf-8
+def demo1():
+    return int(input("请输入一个整数："))
+def demo2():
+    return demo1()
+
+# 主程序中使用try..except..
+try:
+    print(demo2())
+except ValueError:
+    print("请输入正确的整数")
+except Exception as result:
+    print("未知错误 %s" % result)
+```
+### 5.6 抛出 raise 异常(主抛出异常)
+#### 5.6.1 应用场景
+- 在开发中，除了 代码执行出错 Python 解释器会 抛出 异常之外
+- 还可以根据 应用程序 特有的业务需求 主动抛出异常
+#### 示例:
+- 提示用户 输入密码，如果 长度少于 8，抛出 异常
+#### 注意：
+- 当前函数 只负责 提示用户输入密码，如果 密码长度不正确，需要其他的函数进行额外处理
+- 因此可以 抛出异常，由其他需要处理的函数 捕获异常
+#### 5.6.2 抛出异常
+- Python 中提供了一个 Exception 异常类
+- 在开发时，如果满足 特定业务需求时，希望 抛出异常，可以：
+1. **创建 一个 Exception 的 对象**
+2. **使用 raise 关键字 抛出 异常对象**
+#### 需求:
+- 定义 input_password 函数，提示用户输入密码
+- 如果用户输入长度 < 8，抛出异常
+- 如果用户输入长度 >=8，返回输入的密码
+- 详见代码： except_demo5_raise.py
+```python
+def input_password():
+
+    # 1. 提示用户输入密码
+    pwd = input("请输入密码：")
+
+    # 2. 判断密码长度，如果长度 >= 8，返回用户输入的密码
+    if len(pwd) >= 8:
+        return pwd
+
+    # 3. 密码长度不够，需要抛出异常
+    # 1> 创建异常对象 - 使用异常的错误信息字符串作为参数
+    ex = Exception("密码长度不够")
+
+    # 2> 抛出异常对象
+    raise ex
+
+
+try:
+    user_pwd = input_password()
+    print(user_pwd)
+except Exception as result:
+    print("发现错误：%s" % result)
+
+```
+
+

@@ -1,5 +1,7 @@
 # coding = utf-8
 
+# 类对象，类方法 例子
+
 
 class Game(object):
     # 游戏最高分，类属性
