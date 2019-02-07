@@ -32,17 +32,16 @@
 
 ### 2.7 Spider Middlewares（Spider中间件）：
 - 你可以理解为是一个可以自定扩展和操作引擎和Spider中间通信的功能组件（比如进入Spider的Responses;和从Spider出去的Requests）
-> scrapy框架运行顺序
++ scrapy框架运行顺序 <br />
 ![scrapy_all2](./images/scrapy_all2.png)
-> 框架中各组件know more
-scrapy_know_more.png
++ 框架中各组件know more <br />
 ![scrapy_know_more](./images/scrapy_know_more.png)
 ###制作 **Scrapy 爬虫 一共需要4步**：
 1. 新建项目 (scrapy startproject xxx)：新建一个新的爬虫项目
 2. 明确目标 （编写items.py）：明确你想要抓取的目标[字段] 
 3. 制作爬虫 （spiders/xxspider.py）：制作爬虫开始爬取网页
 4. 存储内容 （pipelines.py）：设计管道存储爬取内容 
-> 解析：2 明解目标items.py
+> 解析：2 明解目标items.py <br/>
 ```python
 # items.py
 import scrapy
@@ -56,7 +55,10 @@ class ScrapyTestItem(scrapy.Item):
 ```
 
 ## 3.Scrapy的安装介绍
-- 方法一：通过pip 安装 Scrapy 框架pip install Scrapy
+- 方法一：通过pip 安装 Scrapy
+```shell
+pip install Scrapy
+```
 - 方法二：强烈建议用Anaconda安装 
 ```shell
 conda install -c conda-forge scrapy
