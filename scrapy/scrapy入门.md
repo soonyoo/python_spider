@@ -1,5 +1,5 @@
 # Scrapy 框架
-
+[toc]
 ## 1. scrapy 简介
 
 > Scrapy是用纯Python实现一个为了爬取网站数据、提取结构性数据而编写的应用框架，用途非常广泛。
@@ -74,9 +74,13 @@ conda install -c conda-forge scrapy
 ```
 D:\python\pycharmDemo\scrapy>scrapy startproject qsbk
 ```
-- 其中， qsbk 为项目名称，可以看到将会创建一个 qsbk 文件夹，目录结构大致如下：<br/>
+
+> 其中， qsbk 为项目名称，可以看到将会创建一个 qsbk 文件夹，目录结构大致如下：<br/>
+
 ![qsbk1](./images/qsbk1.png)
-- 下面来简单介绍一下各个主要文件的作用：
+
+> 下面来简单介绍一下各个主要文件的作用：
+
 ```python
 #scrapy.cfg ：项目的配置文件
 #
@@ -90,6 +94,35 @@ D:\python\pycharmDemo\scrapy>scrapy startproject qsbk
 #
 #qsbk/spiders/ ：存储爬虫代码目录
 ```
+
+> settings配置项，需要设置几个个地方
+
+1, ROBOTSTXT_OBEY
+```python
+# 默认True，改为False
+ROBOTSTXT_OBEY = False
+```
+2, DEFAULT_REQUEST_HEADERS
+
+```python
+# Override the default request headers:
+DEFAULT_REQUEST_HEADERS = {
+  'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8',
+  'Accept-Language': 'en',
+  'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 '
+                '(KHTML, like Gecko) Chrome/71.0.3578.98 Safari/537.36',
+}
+```
+3, 如果要保存数据开启pipelines，则要在settings中打开
+```python
+# Configure item pipelines
+# See https://doc.scrapy.org/en/latest/topics/item-pipeline.html
+ITEM_PIPELINES = {
+   'qsbk.pipelines.QsbkPipeline': 300,
+}
+
+```
+
 ### 4.2 制作爬虫(scrapy genspider [爬虫名称] [域名])
 > 在当前目录下输入命令，将在qsbk/spider目录下创建一个名为qsbk_spider的爬虫，并指定爬取域的范围：
 > (域名不用加www)
@@ -117,3 +150,39 @@ class QsbkSpiderSpider(scrapy.Spider):
 # scrapy crawl [爬虫名称]
 scrapy crawl qsbk_spider
 ```
+
+## 5 糗事百科 scrapy笔记
+1. qsbk_spider 爬虫中的response是一个
+`from scrapy.http.response.html import HtmlResponse`
+对象，可以通过xpath css等语法来提取数据
+2. 提取出来的数据是Selector或SelectorList对象，如果要获取其中的字符串，那么应该使用get或getall
+3. getall方法：获取所有selector中所有文本，返回的是一个list
+4. get方法：获取Selector的第一个文本，返回的是一个str类型的文本
+5. 如果数据解析回来要传给pipeline来处理，那么可以使用`yield`来返回；或者先收集所有的item,最后统一使用return返回
+6. item 建议在items.py中定义好模型，以后就不要使用字典
+7. pipeline是专门保存数据用的。
+```python
+import something
+
+class SomethingPipeline(object):
+    def __init__(self):    
+        # 可选实现，做参数初始化等
+        # doing something
+
+    def process_item(self, item, spider):
+        # item (Item 对象) – 被爬取的item
+        # spider (Spider 对象) – 爬取该item的spider
+        # **这个方法必须实现**，每个item pipeline组件都需要调用该方法，
+        # 这个方法必须返回一个 Item 对象，被丢弃的item将不会被之后的pipeline组件所处理。
+        return item
+
+    def open_spider(self, spider):
+        # spider (Spider 对象) – 被开启的spider
+        # 可选实现，当spider被开启时，这个方法被调用。
+
+    def close_spider(self, spider):
+        # spider (Spider 对象) – 被关闭的spider
+        # 可选实现，当spider被关闭时，这个方法被调用
+```
+
+

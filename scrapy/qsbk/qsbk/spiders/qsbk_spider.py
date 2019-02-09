@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 import scrapy
+from scrapy.http.response.html import HtmlResponse
 
 
 class QsbkSpiderSpider(scrapy.Spider):
