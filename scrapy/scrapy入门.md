@@ -1,5 +1,5 @@
 # Scrapy 框架
-[toc]
+@[TOC]
 ## 1. scrapy 简介
 
 > Scrapy是用纯Python实现一个为了爬取网站数据、提取结构性数据而编写的应用框架，用途非常广泛。
@@ -146,10 +146,20 @@ class QsbkSpiderSpider(scrapy.Spider):
 ```
 
 ### 4.3运行爬虫
+方法一：
 ```shell
 # scrapy crawl [爬虫名称]
 scrapy crawl qsbk_spider
 ```
+方法二：
+在爬虫项目中增加一个运行文件如startScrapy.py
+```python
+from scrapy import cmdline
+
+cmdline.execute("scrapy crawl qsbk_spider".split())
+```
+
+
 
 ## 5 糗事百科 scrapy笔记
 1. qsbk_spider 爬虫中的response是一个
@@ -184,5 +194,87 @@ class SomethingPipeline(object):
         # spider (Spider 对象) – 被关闭的spider
         # 可选实现，当spider被关闭时，这个方法被调用
 ```
+## 5.1 JsonItemExporter和JsonLinesItemExporter
+> 保存json数据的时候，可以使用这两个类，让操作变得更简单。
+
+1.`JsonItemExporter` ：这个是每次把数据添加到内存中，最后统一写入到磁盘中。好处：存储的数据是一个满足json规则的数据。坏处是如果数据量比较大，那么比较耗内存。
+示例代码：
+```python
+from scrapy.exporters import JsonItemExporter
 
 
+class QsbkPipeline(object):
+
+    def __init__(self):
+        self.fp = open('duanzi.json', 'wb')
+        self.exporter = JsonItemExporter(self.fp, ensure_ascii=False, encoding='utf-8')
+        self.exporter.start_exporting()
+
+    def process_item(self, item, spider):
+        self.exporter.export_item(item)
+        return item
+
+    def close_spider(self,spider):
+        self.exporter.finish_exporting()
+        self.fp.close()
+        print('爬虫结束。。。。')
+```
+2.`JsonLinesItemExporter`:这个是每次调用`export_item`的时候，就把这个item存储到硬盘中。（不需要start和finish）坏处是每一个字典是一行，整个文件不是一个满足json格式的文件。好处是每次处理的时候就直接存储到硬盘中，这样不会耗内存，数据也比较安全。
+示例代码：
+```python
+from scrapy.exporters import JsonLinesItemExporter
+
+
+class QsbkPipeline(object):
+
+    def __init__(self):
+        self.fp = open('duanzi.json', 'wb')
+        self.exporter = JsonLinesItemExporter(self.fp, ensure_ascii=False, encoding='utf-8')
+        # self.exporter.start_exporting()
+
+    def process_item(self, item, spider):
+        self.exporter.export_item(item)
+        return item
+
+    def close_spider(self,spider):
+        # self.exporter.finish_exporting()
+        self.fp.close()
+        print('爬虫结束。。。。')
+```
+## 5.2 多页数据爬取
+> 递归思想
+
+示例代码：
+```python
+# -*- coding: utf-8 -*-
+import scrapy
+from qsbk.items import QsbkItem
+
+class QsbkSpiderSpider(scrapy.Spider):
+    name = 'qsbk_spider'
+    allowed_domains = ['qiushibaike.com']
+    start_urls = ['https://www.qiushibaike.com/text/page/1/']
+    base_url = "https://www.qiushibaike.com"
+
+    def parse(self, response):
+        # 返回SelectorList
+        article_divs = response.xpath('//div[@id="content-left"]/div')
+        for article_div in article_divs:
+            # 每个article_div的数据类型是Selector
+            author = article_div.xpath('.//div[@class="author clearfix"]//h2/text()').get()
+            # 获取所有指定div下面的文本
+            content = article_div.xpath('.//div[@class="content"]//text()').getall()
+            # 把文本连起来(join)并去空格
+            content = "".join(content).strip()
+            # 使用items.py中定义的字段来接收
+            item = QsbkItem()
+            item['author'] = author
+            item['content'] = content
+            yield item
+        # 多页数据的爬取(如果只爬一页，上面就OK了，如果还要爬多页，则要用下面的代码)
+        next_url = response.xpath('//ul[@class="pagination"]/li[last()]/a/@href').get()
+        if not next_url:
+            return
+        else:
+            yield scrapy.Request(self.base_url+next_url, callback=self.parse)
+```
