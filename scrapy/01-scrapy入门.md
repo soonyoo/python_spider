@@ -166,7 +166,7 @@ cmdline.execute("scrapy crawl qsbk_spider".split())
 `from scrapy.http.response.html import HtmlResponse`
 对象，可以通过xpath css等语法来提取数据
 2. 提取出来的数据是Selector或SelectorList对象，如果要获取其中的字符串，那么应该使用get或getall
-3. getall方法：获取所有selector中所有文本，返回的是一个list
+3. getall方法：获取所有selector中所有文本，返回的是一个list【可以用.join(list).strip()，把LIST串起来，并去空格】
 4. get方法：获取Selector的第一个文本，返回的是一个str类型的文本
 5. 如果数据解析回来要传给pipeline来处理，那么可以使用`yield`来返回；或者先收集所有的item,最后统一使用return返回
 6. item 建议在items.py中定义好模型，以后就不要使用字典
