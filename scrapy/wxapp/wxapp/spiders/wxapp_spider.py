@@ -12,7 +12,8 @@ class WxappSpiderSpider(CrawlSpider):
     start_urls = ['http://www.wxapp-union.com/portal.php?mod=list&catid=2&page=1']
 
     rules = (
-        # Rule(LinkExtractor(allow=r'http://www.wxapp-union.com/portal.php?mod=list&catid=2&page=\d'), callback='parse_item', follow=True),
+        # Rule(LinkExtractor(allow=r'http://www.wxapp-union.com/portal.php?mod=list&catid=2&page=\d').....),
+        #可以简化。。。只取有特征的地方即可。
         Rule(LinkExtractor(allow=r'.+mod=list&catid=2&page=\d'), follow=True),
         # 注callback后面调用的方法要'引住',这与qsbk_spider.py不一样
         Rule(LinkExtractor(allow=r'.+article-.+\.html'), callback="parse_detail", follow=False),
