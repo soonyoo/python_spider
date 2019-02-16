@@ -9,7 +9,7 @@ class RenrenSpider(scrapy.Spider):
 
     def start_requests(self):
         url = "http://www.renren.com/PLogin.do"
-        data = {'email': '18688280440', 'password': '666666qaz'}
+        data = {'email': '18688280440', 'password': '****'}
         request = scrapy.FormRequest(url, formdata=data, callback=self.parse_page)
         yield request
 
