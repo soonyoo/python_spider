@@ -1,5 +1,5 @@
 # Scrapy 框架
-@[TOC]
+[TOC]
 ## 1. scrapy 简介
 
 > Scrapy是用纯Python实现一个为了爬取网站数据、提取结构性数据而编写的应用框架，用途非常广泛。
