@@ -1,7 +1,14 @@
 # CrawlSpiders爬虫
 ## 1.1 创建CrawlSpiders爬虫
-通过下面的命令可以快速创建 CrawlSpider模板 的代码：
-> `scrapy genspider -t crawl [爬虫名字] [域名]`
+### 1.1.1 创建crawlspiders爬虫项目与创建普通爬虫项目相同
+
+```python
+scrapy startproject 项目名称
+```
+
+### 1.1.2 通过下面的命令可以快速创建 CrawlSpider模板 的代码：
+
+ `scrapy genspider -t crawl [爬虫名字] [域名]`
 
 ## 1.2 LinkExtractors链接提取器（萃取器）
 > 使用 LinkExtractors 可以不用程序员自己提取想要的URL，然后发送请求。这些工作都可以交给LinkExtractors，他会在所有的爬的页面中找到满足规则的url,实现自动的爬取。以下对LinkExtractors类做一个简单的介绍：
@@ -10,6 +17,7 @@
 - LinkExtractors 的目的很简单: 提取链接｡
 - 每个LinkExtractor有唯一的公共方法是 extract_links()，它接收一个 Response 对象，并返回一个 scrapy.link.Link 对象。
 - LinkExtractors要实例化一次，并且 extract_links 方法会根据不同的 response 调用多次提取链接｡
+
 ```python
 class scrapy.linkextractors.LinkExtractor(
     allow = (),
