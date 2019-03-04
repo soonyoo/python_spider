@@ -13,9 +13,9 @@ class MongoDBOpt:
         self.ip = 'localhost'
         # 端口为int类型
         self.port = 27017
-        self.conn = MongoClient(self.ip,self.port)
-        self.db = self.conn.scrapydb
-        self.dataset = self.db.scrapydb
+        self.conn = MongoClient(self.ip, self.port)
+        self.db = self.conn.spider_db
+        self.dataset = self.db.qsbk
 
     # 插入单条数据
     def insert(self, dic):
@@ -79,8 +79,11 @@ if __name__ == '__main__':
     mongodb = MongoDBOpt()
 
     # 添加单条数据
-    # info1 = {"name": "zhangsan", "age": 18}
-    # info1 = {"name": "react", "age": 60}
+    # info1 = {"author": "zhangsan", "content": "abc"}
+    # result = mongodb.insert(info1)
+    # print(result)
+    #
+    # info1 = {"author": "react", "content": "cde"}
     # result = mongodb.insert(info1)
     # print(result)
 
@@ -149,18 +152,18 @@ if __name__ == '__main__':
     # 删除
     # 1 删除一条记录
     # '''
-    # result = mongodb.delete_one({"name": "react"})
-    # print(result)
+    result = mongodb.delete_one({"author": "react"})
+    print(result)
     # print(result.raw_result)
     # print(result.deleted_count)
     # '''
     # {'n': 1, 'ok': 1.0}
     #     1
     # 2 删除多条记录
-    result = mongodb.delete_many({'name': 'react'})
-    print(result)
-    print(result.raw_result)
-    print(result.deleted_count)
+    # result = mongodb.delete_many({'name': 'react'})
+    # print(result)
+    # print(result.raw_result)
+    # print(result.deleted_count)
     # {'n': 5, 'ok': 1.0}
     # 5
 

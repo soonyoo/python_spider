@@ -26,8 +26,8 @@ class QsbkSpiderSpider(scrapy.Spider):
             item['content'] = content
             yield item
         # 多页数据的爬取(如果只爬一页，上面就OK了，如果还要爬多页，则要用下面的代码)
-        next_url = response.xpath('//ul[@class="pagination"]/li[last()]/a/@href').get()
-        if not next_url:
-            return
-        else:
-            yield scrapy.Request(self.base_url+next_url, callback=self.parse)
+        # next_url = response.xpath('//ul[@class="pagination"]/li[last()]/a/@href').get()
+        # if not next_url:
+        #     return
+        # else:
+        #     yield scrapy.Request(self.base_url+next_url, callback=self.parse)
