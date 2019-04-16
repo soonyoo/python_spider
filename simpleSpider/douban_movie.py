@@ -2,6 +2,7 @@
 
 import requests
 from lxml import etree
+from db_util import DBUtil
 
 """
 爬取豆瓣电影内容【正在上映】
@@ -13,7 +14,7 @@ https://movie.douban.com/cinema/nowplaying/guangzhou/
 class DouBanMovie:
     def __init__(self):
         self.movie_list = []
-        self.now_play_info = {}
+        self.now_play_info = dict()
         self.url = 'https://movie.douban.com/cinema/nowplaying/guangzhou/'
         self.headers = {'referer': 'https://movie.douban.com/cinema/nowplaying/shaoyang/',
                         'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 '
@@ -48,7 +49,11 @@ class DouBanMovie:
 
 if __name__ == '__main__':
     douban = DouBanMovie()
+    # 入库
+    dbUtil = DBUtil('douban_movie')
     movie_list = douban.parse_douban()
-    for movie in movie_list:
-        print(movie)
+    dbUtil.insert_many_db(movie_list)
+    # for movie in movie_list:
+    #     print(movie)
+
 

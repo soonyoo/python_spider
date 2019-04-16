@@ -11,7 +11,7 @@ class TangshiXpath:
         #                    "target=\"_blank\">行宫</a>(元稹)</span>"
 
         self.tangshi_list = []
-        self.current_poem = {}
+        self.current_poem = dict()
         self.url = 'http://www.gushiwen.org/gushi/tangshi.aspx'
         self.headers = {'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko)'
                         ' Chrome/71.0.3578.98 Safari/537.36'}
@@ -41,9 +41,9 @@ class TangshiXpath:
         # print(self.current_poem)
 
         html = etree.HTML(self.get_html_from_url())
-        spans = html.xpath('//div[@class="typecont"]//span')
+        spans = html.xpath("//div[@class='typecont']//span")
         for span in spans:
-            self.current_poem["author"] = self.null_list(span.xpath('./text()'))
+            self.current_poem["author"] = TangshiXpath.null_list(span.xpath('./text()'))
             self.current_poem["title"] = span.xpath('./a/text()')[0]
             self.current_poem['url'] = span.xpath('./a/@href')[0]
             self.tangshi_list.append(self.current_poem)

@@ -14,10 +14,10 @@ class BmwV1Pipeline(object):
         category = item["category"]
         image_urls = item["image_urls"]
         # 文件夹，根据category来创建
-        category_path = os.path.join(self.path,category)
+        category_path = os.path.join(self.path, category)
         if not os.path.exists(category_path):
             os.mkdir(category_path)
         for image_url in image_urls:
             image_name = image_url.split('_')[-1]
-            request.urlretrieve(image_url,os.path.join(category_path, image_name))
+            request.urlretrieve(image_url, os.path.join(category_path, image_name))
         return item

@@ -3,6 +3,7 @@
 from html.parser import HTMLParser
 import re
 
+
 def _attr(attrs, attrname):
     for attr in attrs:
         if attr[0] == attrname:
