@@ -13,7 +13,7 @@ class RenrenSpider(scrapy.Spider):
         request = scrapy.FormRequest(url, formdata=data, callback=self.parse_page)
         yield request
 
-    def parse_page(self,response):
+    def parse_page(self, response):
         url = "http://www.renren.com/969741257/profile"
         request = scrapy.Request(url, callback=self.parse_profile)
         yield request
