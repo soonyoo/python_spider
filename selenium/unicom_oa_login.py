@@ -2,7 +2,7 @@
 from selenium import webdriver
 # from selenium.webdriver.common.keys import Keys
 # import requests
-# from lxml import etree
+from lxml import etree
 # from urllib import request
 from PIL import Image
 import os
@@ -13,6 +13,9 @@ from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.common.action_chains import ActionChains
 from selenium.webdriver.common.by import By
 import pyautogui
+import json
+from bs4 import BeautifulSoup
+from urllib import request
 
 
 class OALogin(object):
@@ -55,7 +58,7 @@ class OALogin(object):
         # 3.6 单击图片另存之后等2s敲回车，存到chorme的默认下载路径：C:\Users\64174\Downloads\
         time.sleep(2)
         pyautogui.typewrite(['enter'])
-        time.sleep(2)
+        time.sleep(4)
 
         # 3.7 如果图片存在才进行识别
         if os.path.exists(self.img_path):
@@ -72,9 +75,105 @@ class OALogin(object):
                 time.sleep(1)
                 # 第4步：点击登陆OK
                 browser.find_element_by_xpath("//*[@id='loginForm']/div/div/a").click()
-            time.sleep(30)
+                time.sleep(10)
+                # 第4步搜索[学院]
+                search_input = browser.find_element(By.ID, 'seachKey')
+                search_input.send_keys('学院')
+                # 点击搜索应用
+                browser.find_element_by_xpath('//*[@id="page-top"]/div[2]/dl/dd/p[1]/a[1]').click()
+                time.sleep(3)
+                # 点击网络学院
+                browser.find_element_by_xpath('//*[@id="page-body"]/div[2]/div/div/div/a').click()
+                # print(browser.window_handles)
+                browser.switch_to.window(browser.window_handles[1])
+                # print(browser.current_url)
+                time.sleep(10)
+                # 点击,进入[网络学院]
+                browser.find_element_by_xpath('/html/body/spk-root/spk-select-system/div/div/div/a[1]').click()
+                time.sleep(10)
+                # 访问播放地址
+                # ##构造播放地址
+
+                browser.get('http://wsxy.chinaunicom.cn/api/learner/subject/49651475/courses?status=&groupId=&page=0&size=50&name=')
+                html = browser.page_source
+                soup = BeautifulSoup(html, 'lxml')
+                json_text = soup.body.text
+                json_text_dict = json.loads(json_text)
+                # print(type(json_text_dict))
+
+                course_content_lists = json_text_dict["content"]
+
+                # 构造播放地址
+                # http://wsxy.chinaunicom.cn/learner/play/course/49143893;classroomId=49651475;courseDetailId=36680;
+                ### 49143893 = json中的ID
+                ### classroomId = 专题ID
+                ### courseDetailId = json中的offeringCourseId
+
+                mp4_path_list = []
+                mp4_dict = dict()
+
+                for lis in course_content_lists:
+                    class_id = lis['id']
+                    classroom_id = '49651475'
+                    course_detail_id = lis['offeringCourseId']
+                    class_name = lis['name']
+                    class_url = 'http://wsxy.chinaunicom.cn/learner/play/course/%s;classroomId=%s;courseDetailId=%s;' % (class_id, classroom_id, course_detail_id)
+                    browser.get(class_url)
+                    time.sleep(10)
+                    html = etree.HTML(browser.page_source)
+                    mp4_url = html.xpath('//iframe/@src')[0]
+                    # 获取mp4完整地址 print(mp4_url)
+                    begin_url = mp4_url.index('=/content')
+                    end_url = mp4_url.index('.mp4')
+                    url = mp4_url[begin_url + 1:end_url + 4]
+                    mp4_full_path = 'http://content.wsxy.chinaunicom.com' + url
+                    # 把mp4地址存起来
+                    mp4_dict["cn_name"] = class_name
+                    mp4_dict["mp4_url"] = mp4_full_path
+                    mp4_path_list.append(mp4_dict)
+                    print(mp4_dict)
+                    mp4_dict = {}
+                    # 等2秒退出
+                    time.sleep(2)
+                    browser.find_element_by_css_selector('.back-course').click()
+                    time.sleep(6)
+
+                # print(mp4_path_list)
+                return mp4_path_list
+                # time.sleep(30)
+            else:
+                return None
+                print('图片识别失败...')
+        else:
+            return None
+            print("图片不存在...")
+
+    # 防止网络不好，重新下载
+    def auto_down(self, url, filename):
+        try:
+            request.urlretrieve(url, filename)
+        except request.ContentTooShortError:
+            print('Network conditions is not good.Reloading.')
+            self.auto_down(url, filename)
+
+    # 下载
+    def down_load_mp4(self):
+        list_mp4 = self.login_auto()
+        # print(os.path.dirname(__file__))
+        # with open('class_json_file.json', 'r', encoding='utf-8') as fp:
+        #     list_mp4 = json.load(fp)
+        # print(type(list_mp4))
+        if len(list_mp4) > 0:
+            for lis in list_mp4:
+                cn_name = lis["cn_name"]
+                file_name = r"D:\tiangong_movie\%s.mp4" % cn_name
+                begin_msg = 'download [%s] bigin ....' % cn_name
+                end_msg = '[%s] download complete ' % cn_name
+                print(begin_msg)
+                request.urlretrieve(lis["mp4_url"], file_name)
+                print(end_msg)
 
 
 if __name__ == '__main__':
     userLogin = OALogin()
-    userLogin.login_auto()
+    userLogin.down_load_mp4()

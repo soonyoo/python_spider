@@ -13,7 +13,7 @@ input_first = browser.find_element_by_id("q")
 input_second = browser.find_element_by_css_selector("#q")
 # input_third = browser.find_element_by_xpath('//*[@id="q"]')
 input_third = browser.find_element_by_xpath("//input[@id='q']")
-input_four = browser.find_element(By.ID,'q')
+input_four = browser.find_element(By.ID, 'q')
 
 
 print(input_first)
