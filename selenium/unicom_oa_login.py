@@ -23,10 +23,35 @@ class OALogin(object):
         self.home_url = 'http://sso.portal.unicom.local/eip_sso/ssoLogin.html?appid=np000&success=http://www.portal.unicom.local/user/token'
         self.driver_path = r'D:\python\chromedriver\chromedriver.exe'
         self.img_path = r'C:\Users\64174\Downloads\ValidateImage.jpg'
+        self.base_mp4_url = 'http://content.wsxy.chinaunicom.com'
+        self.class_api_url = 'http://wsxy.chinaunicom.cn/api/learner/subject/49651475/courses?status=&groupId=&page=0&size=50&name='
+        self.base_class_url = 'http://wsxy.chinaunicom.cn/learner/play/course'
         # 判断文件是否存在(如果存在，删除)
         if os.path.exists(self.img_path):
             os.remove(self.img_path)
-            print('成功移除文件：%s' % self.img_path)
+            # print('成功移除文件：%s' % self.img_path)
+
+    # 验证码图片文字识别
+    def ocr_identification_code(self):
+        image_object = Image.open(self.img_path)
+        verify_code = pytesseract.image_to_string(image_object)
+        # 防止有空格
+        verify_code = verify_code.replace(' ', '')
+        # print(verify_code)
+        return verify_code
+
+    @staticmethod
+    def html_to_json(html):
+        # html = browser.page_source
+        soup = BeautifulSoup(html, 'lxml')
+        json_text = soup.body.text
+        return json.loads(json_text)
+
+    # 返回播放地址url
+    def get_class_url(self, class_id, classroom_id, course_detail_id):
+        class_url = '/%s;classroomId=%s;courseDetailId=%s;' % (class_id, classroom_id, course_detail_id)
+        class_url = self.base_class_url + class_url
+        return class_url
 
     def login_auto(self):
         # 第1步：打开浏览器
@@ -59,94 +84,85 @@ class OALogin(object):
         time.sleep(2)
         pyautogui.typewrite(['enter'])
         time.sleep(4)
-
         # 3.7 如果图片存在才进行识别
         if os.path.exists(self.img_path):
             # ##识别图片##
-            image_object = Image.open(self.img_path)
-            verify_code = pytesseract.image_to_string(image_object)
-            # 防止有空格
-            verify_code = verify_code.replace(' ', '')
+            verify_code = self.ocr_identification_code()
             print(verify_code)
+            if verify_code is None:
+                print('图片识别失败！None...')
+            elif len(verify_code) != 4:
+                print('图片识别失败！长度不正确...')
             # 3.7.1 判断长度为4位才进行验证码输入
-            if len(verify_code) == 4:
+            else:
                 # ## 3.7.2 查找[验证码]的输入框,并输入[验证码]
                 browser.find_element_by_id('verifyCode').send_keys(verify_code)
                 time.sleep(1)
                 # 第4步：点击登陆OK
                 browser.find_element_by_xpath("//*[@id='loginForm']/div/div/a").click()
-                time.sleep(10)
-                # 第4步搜索[学院]
-                search_input = browser.find_element(By.ID, 'seachKey')
-                search_input.send_keys('学院')
-                # 点击搜索应用
+                # time.sleep(10)
+                # 4.1 显式等待[搜索框]出现，10秒
+                WebDriverWait(browser, 10).until(EC.presence_of_element_located((By.ID, 'seachKey')))
+                # 4.2 输入[学院]
+                browser.find_element(By.ID, 'seachKey').send_keys('学院')
+                # 4.3 点击[搜索应用]
                 browser.find_element_by_xpath('//*[@id="page-top"]/div[2]/dl/dd/p[1]/a[1]').click()
-                time.sleep(3)
-                # 点击网络学院
+                # 4.4 显示等待[网络学院]
+                WebDriverWait(browser, 6).until(EC.presence_of_element_located((By.ID, 'sub_count_link-na058')))
+                # 4.5 点击[网络学院]
                 browser.find_element_by_xpath('//*[@id="page-body"]/div[2]/div/div/div/a').click()
-                # print(browser.window_handles)
+                # 4.6 切换窗口
                 browser.switch_to.window(browser.window_handles[1])
                 # print(browser.current_url)
-                time.sleep(10)
-                # 点击,进入[网络学院]
+                # time.sleep(10)
+                # 4.7 显示等待20秒
+                WebDriverWait(browser, 20).until(EC.presence_of_element_located((By.XPATH, '/html/body/spk-root/spk-select-system/div/div/div/a[1]')))
+                # 4.8 点击,进入[网络学院]
                 browser.find_element_by_xpath('/html/body/spk-root/spk-select-system/div/div/div/a[1]').click()
-                time.sleep(10)
-                # 访问播放地址
-                # ##构造播放地址
-
-                browser.get('http://wsxy.chinaunicom.cn/api/learner/subject/49651475/courses?status=&groupId=&page=0&size=50&name=')
+                # time.sleep(10)
+                # 4.9 显示等待20秒
+                WebDriverWait(browser, 20).until(EC.presence_of_element_located((By.ID, 'nz-overlay-0')))
+                # 4.10 访问播放地址
+                # 4.10.1 构造播放地址(从返回json数据中获取相应信息)
+                browser.get(self.class_api_url)
                 html = browser.page_source
-                soup = BeautifulSoup(html, 'lxml')
-                json_text = soup.body.text
-                json_text_dict = json.loads(json_text)
-                # print(type(json_text_dict))
-
+                json_text_dict = OALogin.html_to_json(html)
                 course_content_lists = json_text_dict["content"]
-
-                # 构造播放地址
-                # http://wsxy.chinaunicom.cn/learner/play/course/49143893;classroomId=49651475;courseDetailId=36680;
-                ### 49143893 = json中的ID
-                ### classroomId = 专题ID
-                ### courseDetailId = json中的offeringCourseId
-
+                # 4.10.2 定义数组，存放MP4真实地址
                 mp4_path_list = []
                 mp4_dict = dict()
-
+                # 循环播放，获取mp4地址
                 for lis in course_content_lists:
                     class_id = lis['id']
                     classroom_id = '49651475'
                     course_detail_id = lis['offeringCourseId']
                     class_name = lis['name']
-                    class_url = 'http://wsxy.chinaunicom.cn/learner/play/course/%s;classroomId=%s;courseDetailId=%s;' % (class_id, classroom_id, course_detail_id)
+                    # 构造播放地址
+                    class_url = self.get_class_url(class_id, classroom_id, course_detail_id)
+                    # 访问播放地址
                     browser.get(class_url)
+                    # 显式等待20秒[等待iframe出现](此处失败，改天研究)
+                    # WebDriverWait(browser, 20).until(EC.text_to_be_present_in_element_value((By.XPATH, '//iframe/@src'), '.mp4'))
                     time.sleep(10)
-                    html = etree.HTML(browser.page_source)
-                    mp4_url = html.xpath('//iframe/@src')[0]
                     # 获取mp4完整地址 print(mp4_url)
+                    browser_html = browser.page_source
+                    # print(browser_html)
+                    html = etree.HTML(browser_html)
+                    mp4_url = html.xpath('//iframe/@src')[0]
                     begin_url = mp4_url.index('=/content')
                     end_url = mp4_url.index('.mp4')
                     url = mp4_url[begin_url + 1:end_url + 4]
-                    mp4_full_path = 'http://content.wsxy.chinaunicom.com' + url
+                    mp4_dict["mp4_url"] = self.base_mp4_url + url
                     # 把mp4地址存起来
                     mp4_dict["cn_name"] = class_name
-                    mp4_dict["mp4_url"] = mp4_full_path
                     mp4_path_list.append(mp4_dict)
                     print(mp4_dict)
                     mp4_dict = {}
                     # 等2秒退出
                     time.sleep(2)
                     browser.find_element_by_css_selector('.back-course').click()
-                    time.sleep(6)
-
-                # print(mp4_path_list)
+                    time.sleep(4)
                 return mp4_path_list
-                # time.sleep(30)
-            else:
-                return None
-                print('图片识别失败...')
-        else:
-            return None
-            print("图片不存在...")
 
     # 防止网络不好，重新下载
     def auto_down(self, url, filename):
@@ -154,16 +170,22 @@ class OALogin(object):
             request.urlretrieve(url, filename)
         except request.ContentTooShortError:
             print('Network conditions is not good.Reloading.')
+            # 递归
             self.auto_down(url, filename)
 
     # 下载
     def down_load_mp4(self):
         list_mp4 = self.login_auto()
+
+        # 如果是加载json文件后下载,用下面这几句
         # print(os.path.dirname(__file__))
         # with open('class_json_file.json', 'r', encoding='utf-8') as fp:
         #     list_mp4 = json.load(fp)
         # print(type(list_mp4))
-        if len(list_mp4) > 0:
+
+        if list_mp4 is None:
+            print('mp4列表获取失败...')
+        else:
             for lis in list_mp4:
                 cn_name = lis["cn_name"]
                 file_name = r"D:\tiangong_movie\%s.mp4" % cn_name
