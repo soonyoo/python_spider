@@ -58,6 +58,7 @@ print(json_str_chs)
 >参见 2_python_str_2_json_chs.py
 
 ## 把字符串保存成json文件
+> 重点了解json.dumps(),json.loads(),json.dump(),json.load()几个函数的用法。
 ```python
 # coding = utf-8
 import json
