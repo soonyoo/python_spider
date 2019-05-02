@@ -40,14 +40,19 @@ class Test(object):
         full_path = 'http://content.wsxy.chinaunicom.com' + url
         print(full_path)
 
-
+    @staticmethod
+    def list_cut():
+        lis = ['a', 'b', 'c', 'd']
+        lis1 = lis[1:]
+        print(lis1)
 
 
 if __name__ == '__main__':
-    test = Test()
+    # test = Test()
     # test.shu_zhu_dict()
     # test.do_mp4_str()
-    test.index_test()
+    # test.index_test()
+    Test.list_cut()
 
 
 
