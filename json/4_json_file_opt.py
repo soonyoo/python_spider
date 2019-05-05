@@ -4,9 +4,10 @@ import json
 """
 author:xuwenyuan
 date: 2019-04-30
-describe：1.把字符串保存成json文件
-          2.读取json文件
-          3.Json模块dumps、loads、dump、load函数介绍[后面带s的，与文件有关]
+describe：对json文件操作：
+        1.把字符串保存成json文件
+        2.读取json文件
+        3.Json模块dumps、loads、dump、load函数介绍[后面带s的，与文件有关]
 """
 
 

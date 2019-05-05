@@ -4,13 +4,6 @@ from html.parser import HTMLParser
 import re
 
 
-def _attr(attrs, attrname):
-    for attr in attrs:
-        if attr[0] == attrname:
-            return attr[1]
-    return None
-
-
 class MyHTMLParser(HTMLParser):
     def __init__(self):
         HTMLParser.__init__(self)
@@ -22,20 +15,23 @@ class MyHTMLParser(HTMLParser):
         self.current_poem = {}
         self.tangshi_list = []
 
+    def _attr(self, attrs, attrname):
+        for attr in attrs:
+            if attr[0] == attrname:
+                return attr[1]
+        return None
 
     def handle_starttag(self, tag, attrs):
         # print("Encountered a start tag:", tag)
         if tag == 'a':
             self.in_a = True
-            self.current_poem['url'] = _attr(attrs, 'href')
+            self.current_poem['url'] = self._attr(attrs, 'href')
             # print(attrs)
             # self.current_poem['title'] = re.findall('',)
 
     def handle_endtag(self, tag):
         # print("Encountered an end tag :", tag)
         pass
-
-
 
     def handle_data(self, data):
         print(data)
@@ -52,15 +48,11 @@ def retrive_tangshi_300():
     # parser = MyHTMLParser()
     # parser.feed(html)
     current_poem = {}
-    list =  re.findall(r'">(.*?)</a>\((.*)\)', html)
+    list1 = re.findall(r'">(.*?)</a>\((.*)\)', html)
     # <a href="(.*?)"
-    current_poem['title'] = list[0][0]
-    current_poem['author'] = list[0][1]
-
-
-    # return parser.tangshi_list.append(current_poem)
+    current_poem['title'] = list1[0][0]
+    current_poem['author'] = list1[0][1]
     print(current_poem)
-    # print(list)
 
 
 if __name__ == '__main__':

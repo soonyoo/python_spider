@@ -127,6 +127,7 @@ class OALogin(object):
                 browser.get(self.class_api_url)
                 html = browser.page_source
                 json_text_dict = OALogin.html_to_json(html)
+                # print(type(json_text_dict))
                 course_content_lists = json_text_dict["content"]
                 # 4.10.2 定义数组，存放MP4真实地址
                 mp4_path_list = []

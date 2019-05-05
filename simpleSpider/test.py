@@ -48,11 +48,13 @@ class Test(object):
 
 
 if __name__ == '__main__':
+    for x in range(1, 3):
+        print(x)
     # test = Test()
     # test.shu_zhu_dict()
     # test.do_mp4_str()
     # test.index_test()
-    Test.list_cut()
+    # Test.list_cut()
 
 
 

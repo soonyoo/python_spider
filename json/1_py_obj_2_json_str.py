@@ -1,10 +1,11 @@
 # coding = utf-8
-
 import json
-
+"""
+把python对象dict/list转换为json字符串
+"""
 persons = [
     {
-        'username':"zhangsan",
+        'username': "zhangsan",
         'age': 18,
         'country': 'china'
     },
