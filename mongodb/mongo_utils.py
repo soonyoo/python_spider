@@ -166,6 +166,8 @@ if __name__ == '__main__':
     # print(result.deleted_count)
     # {'n': 5, 'ok': 1.0}
     # 5
+    # 模糊匹配
+    # db.getCollection('zb_bs4_tb').find({title: {$regex: / 石油 /}})
 
 
 

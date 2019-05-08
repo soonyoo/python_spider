@@ -19,14 +19,14 @@ class Bmw5V3Spider(CrawlSpider):
         srcs = response.xpath("//div[contains(@class,'uibox-con')]/ul/li//img/@src").getall()
 
         # srcs = list(map(lambda x: x.replace("t_",""),srcs))
-        ## urls = []
-        ## for src in srcs:
-        ##     url = response.urljoin(src)
-        ##     urls.append(url)
+        # # urls = []
+        # # for src in srcs:
+        # #     url = response.urljoin(src)
+        # #     urls.append(url)
         # srcs = list(map(lambda x: response.urljoin(x), srcs))
-        #以上代码可用一行来完成
+        # 以上代码可用一行来完成
         srcs = list(map(lambda x: response.urljoin(x.replace("t_", "")), srcs))
-        yield BmwV3Item(category=category,image_urls=srcs)
+        yield BmwV3Item(category=category, image_urls=srcs)
 
 
 

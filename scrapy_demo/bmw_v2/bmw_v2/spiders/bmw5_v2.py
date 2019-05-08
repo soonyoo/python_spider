@@ -2,6 +2,7 @@
 import scrapy
 from bmw_v2.items import BmwV2Item
 
+
 class Bmw5V2Spider(scrapy.Spider):
     name = 'bmw5_v2'
     allowed_domains = ['car.autohome.com.cn']

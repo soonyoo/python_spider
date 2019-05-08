@@ -2,7 +2,6 @@
 
 from bs4 import BeautifulSoup
 import requests
-# import re
 
 
 class Tangshi(object):
@@ -37,10 +36,3 @@ if __name__ == '__main__':
     tangshi_lis = tangshi.parser()
     for lis in tangshi_lis:
         print(lis)
-
-
-
-
-
-
-

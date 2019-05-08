@@ -79,15 +79,13 @@ class ZhaoBiaoWang(object):
         return biao_lists
 
 
-
-
-
-
-
 if __name__ == '__main__':
     biao = ZhaoBiaoWang()
-    biao_list = biao.get_data_ex()
-    # for biao in biao_list:
-    #     print(biao)
+    biao_list = biao.get_data()
+
+    for biao in biao_list:
+        print(biao)
+
     # 3.保存到mongoDB
-    biao.insert_many(biao_list)
+    # biao_list = biao.get_data_ex()
+    # biao.insert_many(biao_list)

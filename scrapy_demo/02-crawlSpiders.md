@@ -2,7 +2,7 @@
 ## 1.1 创建CrawlSpiders爬虫
 ### 1.1.1 创建crawlspiders爬虫项目与创建普通爬虫项目相同
 
-```python
+```shell
 scrapy startproject 项目名称
 ```
 
