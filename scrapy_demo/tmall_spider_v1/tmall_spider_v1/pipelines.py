@@ -19,7 +19,7 @@ class TmallSpiderV1Pipeline(object):
     def process_item(self, item, spider):
         # print(item)
         try:
-            self.cursor.execute(self.sql, (uuid.uuid1(), item['goods_price'], item['goods_name'], item['goods_url'], item['shop_name'], item['shop_url']))
+            self.cursor.execute(self.sql, (str(uuid.uuid1()), item['goods_price'], item['goods_name'], item['goods_url'], item['shop_name'], item['shop_url']))
             self.conn.commit()
         except Exception as ex:
             print('Insert Error' + str(ex))
