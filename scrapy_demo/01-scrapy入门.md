@@ -278,3 +278,22 @@ class QsbkSpiderSpider(scrapy.Spider):
         else:
             yield scrapy.Request(self.base_url+next_url, callback=self.parse)
 ```
+# 6.调用settings的值的方法：
+>推荐使用方法2：
+
+## 6.1 方法1：
+```python
+from scrapy.utils.project import get_project_settings
+
+# 从settings.py中读取键值
+settings = get_project_settings()
+dbkwargs = settings.get("DBKWARGS")
+```
+## 6.2 方法2：
+
+```python
+from xici_spider import settings
+...
+dbkwargs = settings.DBKWARGS
+```
+

@@ -58,6 +58,13 @@ class Test(object):
         url_show = url2.split('?')[0]
         return url_show
 
+    @staticmethod
+    def start_req():
+        reqs = []
+        for i in range(11):
+            req = 'https://www.xicidaili.com/nn/{}'.format(i)
+            reqs.append(req)
+        return reqs
 
 
 # 两种不同url
@@ -65,10 +72,10 @@ class Test(object):
 # https://www.jianshu.com/p/f9fb7ea4bf32
 
 
-
-
-
 if __name__ == '__main__':
+    list1 = Test.start_req()
+    for lis in list1:
+        print(lis)
     # url = Test.url_split()
     # print(url)
     # t = "2017-11-24 17:30:00"
@@ -121,18 +128,18 @@ if __name__ == '__main__':
 									
 									</span>
     """
-    html = etree.HTML(html)
-    span = html.xpath('//span')[0]
-    span_title = span.xpath("@title")[0]
-    span_onclick = span.xpath("@onclick")[0]
+    # html = etree.HTML(html)
+    # span = html.xpath('//span')[0]
+    # span_title = span.xpath("@title")[0]
+    # span_onclick = span.xpath("@onclick")[0]
     # print(span_onclick)
 
-    onclick_start = span_onclick.find('\"')
+    # onclick_start = span_onclick.find('\"')
     # print(onclick_start)
 
-    onclick_end = span_onclick.find('\"', onclick_start+1)
+    # onclick_end = span_onclick.find('\"', onclick_start+1)
     # print(onclick_end)
-    print(span_onclick[onclick_start+1:onclick_end])
+    # print(span_onclick[onclick_start+1:onclick_end])
 
 
     # span_onclick_url = span_onclick.find('\"', 13)

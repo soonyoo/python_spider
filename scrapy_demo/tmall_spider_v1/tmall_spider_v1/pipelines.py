@@ -5,15 +5,12 @@
 # Don't forget to add your pipeline to the ITEM_PIPELINES setting
 # See: https://doc.scrapy.org/en/latest/topics/item-pipeline.html
 import pymysql
-# from scrapy.utils.project import get_project_settings
-from xici_spider import settings
+from tmall_spider_v1 import settings
+import uuid
 
 
-class XiciSpiderPipeline(object):
+class TmallSpiderV1Pipeline(object):
     def __init__(self):
-        # 从settings.py中读取键值
-        # settings = get_project_settings()
-        # dbkwargs = settings.get("DBKWARGS")
         dbkwargs = settings.DBKWARGS
         self.conn = pymysql.connect(**dbkwargs)
         self.cursor = self.conn.cursor()
@@ -22,7 +19,7 @@ class XiciSpiderPipeline(object):
     def process_item(self, item, spider):
         # print(item)
         try:
-            self.cursor.execute(self.sql, (item['ip'], item['port'], item['position'], item['type'], item['speed'], item['last_check_time']))
+            self.cursor.execute(self.sql, (uuid.uuid1(), item['goods_price'], item['goods_name'], item['goods_url'], item['shop_name'], item['shop_url']))
             self.conn.commit()
         except Exception as ex:
             print('Insert Error' + str(ex))
@@ -33,7 +30,7 @@ class XiciSpiderPipeline(object):
     def sql(self):
         if not self._sql:
             self._sql = """
-            insert into proxy(ip,port,position,type,speed,last_check_time) values (%s,%s,%s,%s,%s,%s)
+            insert into goods(id,goods_price,goods_name,goods_url,shop_name,shop_url) values (%s,%s,%s,%s,%s,%s)
             """
             return self._sql
         return self._sql

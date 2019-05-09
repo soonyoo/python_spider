@@ -39,7 +39,7 @@ class BMWImagePipeline(ImagesPipeline):
     # 重写file_path方法
     def file_path(self, request, response=None, info=None):
         # 这个方法是在图片将要被存储的时候调用，来获取这个图片存储的路径
-        path = super(BMWImagePipeline, self).file_path(request,response,info)
+        path = super(BMWImagePipeline, self).file_path(request, response, info)
         category = request.item.get('category')
         image_store = settings.IMAGES_STORE
         category_path = os.path.join(image_store,category)

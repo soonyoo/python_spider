@@ -1,0 +1,134 @@
+2019-05-09 15:26:12 [scrapy.utils.log] INFO: Scrapy 1.5.1 started (bot: tmall_spider_v1)
+2019-05-09 15:26:12 [scrapy.utils.log] INFO: Versions: lxml 3.6.4.0, libxml2 2.9.4, cssselect 1.0.3, parsel 1.5.0, w3lib 1.19.0, Twisted 18.7.0, Python 3.5.2 |Anaconda custom (64-bit)| (default, Jul  5 2016, 11:41:13) [MSC v.1900 64 bit (AMD64)], pyOpenSSL 16.2.0 (OpenSSL 1.1.1b  26 Feb 2019), cryptography 2.6.1, Platform Windows-10-10.0.17134-SP0
+2019-05-09 15:26:12 [scrapy.crawler] INFO: Overridden settings: {'BOT_NAME': 'tmall_spider_v1', 'NEWSPIDER_MODULE': 'tmall_spider_v1.spiders', 'SPIDER_MODULES': ['tmall_spider_v1.spiders'], 'DOWNLOAD_DELAY': 3, 'LOG_FILE': 'scrapy.log'}
+2019-05-09 15:26:12 [scrapy.middleware] INFO: Enabled extensions:
+['scrapy.extensions.telnet.TelnetConsole',
+ 'scrapy.extensions.corestats.CoreStats',
+ 'scrapy.extensions.logstats.LogStats']
+2019-05-09 15:26:12 [selenium.webdriver.remote.remote_connection] DEBUG: POST http://127.0.0.1:58046/session {"desiredCapabilities": {"browserName": "chrome", "platform": "ANY", "version": "", "goog:chromeOptions": {"args": [], "extensions": []}}, "capabilities": {"firstMatch": [{}], "alwaysMatch": {"browserName": "chrome", "goog:chromeOptions": {"args": [], "extensions": []}, "platformName": "any"}}}
+2019-05-09 15:26:12 [urllib3.connectionpool] DEBUG: Starting new HTTP connection (1): 127.0.0.1:58046
+2019-05-09 15:26:15 [urllib3.connectionpool] DEBUG: http://127.0.0.1:58046 "POST /session HTTP/1.1" 200 1026
+2019-05-09 15:26:15 [selenium.webdriver.remote.remote_connection] DEBUG: Finished Request
+2019-05-09 15:26:16 [scrapy.middleware] INFO: Enabled downloader middlewares:
+['scrapy.downloadermiddlewares.httpauth.HttpAuthMiddleware',
+ 'scrapy.downloadermiddlewares.downloadtimeout.DownloadTimeoutMiddleware',
+ 'scrapy.downloadermiddlewares.defaultheaders.DefaultHeadersMiddleware',
+ 'scrapy.downloadermiddlewares.useragent.UserAgentMiddleware',
+ 'tmall_spider_v1.middlewares.SeleniumDownloadMiddleware',
+ 'scrapy.downloadermiddlewares.retry.RetryMiddleware',
+ 'scrapy.downloadermiddlewares.redirect.MetaRefreshMiddleware',
+ 'scrapy.downloadermiddlewares.httpcompression.HttpCompressionMiddleware',
+ 'scrapy.downloadermiddlewares.redirect.RedirectMiddleware',
+ 'scrapy.downloadermiddlewares.cookies.CookiesMiddleware',
+ 'scrapy.downloadermiddlewares.httpproxy.HttpProxyMiddleware',
+ 'scrapy.downloadermiddlewares.stats.DownloaderStats']
+2019-05-09 15:26:16 [scrapy.middleware] INFO: Enabled spider middlewares:
+['scrapy.spidermiddlewares.httperror.HttpErrorMiddleware',
+ 'scrapy.spidermiddlewares.offsite.OffsiteMiddleware',
+ 'scrapy.spidermiddlewares.referer.RefererMiddleware',
+ 'scrapy.spidermiddlewares.urllength.UrlLengthMiddleware',
+ 'scrapy.spidermiddlewares.depth.DepthMiddleware']
+2019-05-09 15:26:16 [scrapy.middleware] INFO: Enabled item pipelines:
+[]
+2019-05-09 15:26:16 [scrapy.core.engine] INFO: Spider opened
+2019-05-09 15:26:16 [scrapy.extensions.logstats] INFO: Crawled 0 pages (at 0 pages/min), scraped 0 items (at 0 items/min)
+2019-05-09 15:26:16 [scrapy.extensions.telnet] DEBUG: Telnet console listening on 127.0.0.1:6023
+2019-05-09 15:26:16 [selenium.webdriver.remote.remote_connection] DEBUG: POST http://127.0.0.1:58046/session/d6ccb5cc0a756fc3ca7e87b1329832bf/url {"url": "https://list.tmall.com/search_product.htm?q=%C5%AE%D7%B0&type=p&spm=a220m.1000858.a2227oh.d100", "sessionId": "d6ccb5cc0a756fc3ca7e87b1329832bf"}
+2019-05-09 15:26:18 [urllib3.connectionpool] DEBUG: http://127.0.0.1:58046 "POST /session/d6ccb5cc0a756fc3ca7e87b1329832bf/url HTTP/1.1" 200 72
+2019-05-09 15:26:18 [selenium.webdriver.remote.remote_connection] DEBUG: Finished Request
+2019-05-09 15:26:21 [selenium.webdriver.remote.remote_connection] DEBUG: GET http://127.0.0.1:58046/session/d6ccb5cc0a756fc3ca7e87b1329832bf/source {"sessionId": "d6ccb5cc0a756fc3ca7e87b1329832bf"}
+2019-05-09 15:26:21 [urllib3.connectionpool] DEBUG: http://127.0.0.1:58046 "GET /session/d6ccb5cc0a756fc3ca7e87b1329832bf/source HTTP/1.1" 200 433933
+2019-05-09 15:26:21 [selenium.webdriver.remote.remote_connection] DEBUG: Finished Request
+2019-05-09 15:26:21 [selenium.webdriver.remote.remote_connection] DEBUG: GET http://127.0.0.1:58046/session/d6ccb5cc0a756fc3ca7e87b1329832bf/url {"sessionId": "d6ccb5cc0a756fc3ca7e87b1329832bf"}
+2019-05-09 15:26:21 [urllib3.connectionpool] DEBUG: http://127.0.0.1:58046 "GET /session/d6ccb5cc0a756fc3ca7e87b1329832bf/url HTTP/1.1" 200 164
+2019-05-09 15:26:21 [selenium.webdriver.remote.remote_connection] DEBUG: Finished Request
+2019-05-09 15:26:21 [scrapy.core.engine] DEBUG: Crawled (200) <GET https://list.tmall.com/search_product.htm?q=%C5%AE%D7%B0&type=p&spm=a220m.1000858.a2227oh.d100> (referer: None)
+2019-05-09 15:26:21 [tmall_spider] DEBUG: List Page error--https://list.tmall.com/search_product.htm?q=%C5%AE%D7%B0&type=p&spm=a220m.1000858.a2227oh.d100
+2019-05-09 15:26:21 [scrapy.core.engine] INFO: Closing spider (finished)
+2019-05-09 15:26:21 [scrapy.statscollectors] INFO: Dumping Scrapy stats:
+{'downloader/response_bytes': 389977,
+ 'downloader/response_count': 1,
+ 'downloader/response_status_count/200': 1,
+ 'finish_reason': 'finished',
+ 'finish_time': datetime.datetime(2019, 5, 9, 7, 26, 21, 852376),
+ 'log_count/DEBUG': 16,
+ 'log_count/INFO': 7,
+ 'response_received_count': 1,
+ 'scheduler/dequeued': 1,
+ 'scheduler/dequeued/memory': 1,
+ 'scheduler/enqueued': 1,
+ 'scheduler/enqueued/memory': 1,
+ 'start_time': datetime.datetime(2019, 5, 9, 7, 26, 16, 135618)}
+2019-05-09 15:26:21 [scrapy.core.engine] INFO: Spider closed (finished)
+2019-05-09 15:39:38 [scrapy.utils.log] INFO: Scrapy 1.5.1 started (bot: tmall_spider_v1)
+2019-05-09 15:39:38 [scrapy.utils.log] INFO: Versions: lxml 3.6.4.0, libxml2 2.9.4, cssselect 1.0.3, parsel 1.5.0, w3lib 1.19.0, Twisted 18.7.0, Python 3.5.2 |Anaconda custom (64-bit)| (default, Jul  5 2016, 11:41:13) [MSC v.1900 64 bit (AMD64)], pyOpenSSL 16.2.0 (OpenSSL 1.1.1b  26 Feb 2019), cryptography 2.6.1, Platform Windows-10-10.0.17134-SP0
+2019-05-09 15:39:38 [scrapy.crawler] INFO: Overridden settings: {'NEWSPIDER_MODULE': 'tmall_spider_v1.spiders', 'LOG_FILE': 'scrapy.log', 'SPIDER_MODULES': ['tmall_spider_v1.spiders'], 'BOT_NAME': 'tmall_spider_v1', 'DOWNLOAD_DELAY': 3}
+2019-05-09 15:39:38 [scrapy.middleware] INFO: Enabled extensions:
+['scrapy.extensions.corestats.CoreStats',
+ 'scrapy.extensions.logstats.LogStats',
+ 'scrapy.extensions.telnet.TelnetConsole']
+2019-05-09 15:39:38 [selenium.webdriver.remote.remote_connection] DEBUG: POST http://127.0.0.1:58423/session {"desiredCapabilities": {"browserName": "chrome", "version": "", "goog:chromeOptions": {"args": [], "extensions": []}, "platform": "ANY"}, "capabilities": {"alwaysMatch": {"platformName": "any", "browserName": "chrome", "goog:chromeOptions": {"args": [], "extensions": []}}, "firstMatch": [{}]}}
+2019-05-09 15:39:38 [urllib3.connectionpool] DEBUG: Starting new HTTP connection (1): 127.0.0.1:58423
+2019-05-09 15:39:41 [urllib3.connectionpool] DEBUG: http://127.0.0.1:58423 "POST /session HTTP/1.1" 200 1025
+2019-05-09 15:39:41 [selenium.webdriver.remote.remote_connection] DEBUG: Finished Request
+2019-05-09 15:39:41 [scrapy.middleware] INFO: Enabled downloader middlewares:
+['scrapy.downloadermiddlewares.httpauth.HttpAuthMiddleware',
+ 'scrapy.downloadermiddlewares.downloadtimeout.DownloadTimeoutMiddleware',
+ 'scrapy.downloadermiddlewares.defaultheaders.DefaultHeadersMiddleware',
+ 'scrapy.downloadermiddlewares.useragent.UserAgentMiddleware',
+ 'tmall_spider_v1.middlewares.SeleniumDownloadMiddleware',
+ 'scrapy.downloadermiddlewares.retry.RetryMiddleware',
+ 'scrapy.downloadermiddlewares.redirect.MetaRefreshMiddleware',
+ 'scrapy.downloadermiddlewares.httpcompression.HttpCompressionMiddleware',
+ 'scrapy.downloadermiddlewares.redirect.RedirectMiddleware',
+ 'scrapy.downloadermiddlewares.cookies.CookiesMiddleware',
+ 'scrapy.downloadermiddlewares.httpproxy.HttpProxyMiddleware',
+ 'scrapy.downloadermiddlewares.stats.DownloaderStats']
+2019-05-09 15:39:41 [scrapy.middleware] INFO: Enabled spider middlewares:
+['scrapy.spidermiddlewares.httperror.HttpErrorMiddleware',
+ 'scrapy.spidermiddlewares.offsite.OffsiteMiddleware',
+ 'scrapy.spidermiddlewares.referer.RefererMiddleware',
+ 'scrapy.spidermiddlewares.urllength.UrlLengthMiddleware',
+ 'scrapy.spidermiddlewares.depth.DepthMiddleware']
+2019-05-09 15:39:41 [scrapy.middleware] INFO: Enabled item pipelines:
+[]
+2019-05-09 15:39:41 [scrapy.core.engine] INFO: Spider opened
+2019-05-09 15:39:41 [scrapy.extensions.logstats] INFO: Crawled 0 pages (at 0 pages/min), scraped 0 items (at 0 items/min)
+2019-05-09 15:39:41 [scrapy.extensions.telnet] DEBUG: Telnet console listening on 127.0.0.1:6023
+2019-05-09 15:39:41 [selenium.webdriver.remote.remote_connection] DEBUG: POST http://127.0.0.1:58423/session/e4b70acb42f5d6f6cebd1caae993b648/url {"sessionId": "e4b70acb42f5d6f6cebd1caae993b648", "url": "https://list.tmall.com/search_product.htm?q=%C5%AE%D7%B0&type=p&spm=a220m.1000858.a2227oh.d100"}
+2019-05-09 15:39:44 [urllib3.connectionpool] DEBUG: http://127.0.0.1:58423 "POST /session/e4b70acb42f5d6f6cebd1caae993b648/url HTTP/1.1" 200 72
+2019-05-09 15:39:44 [selenium.webdriver.remote.remote_connection] DEBUG: Finished Request
+2019-05-09 15:39:47 [selenium.webdriver.remote.remote_connection] DEBUG: GET http://127.0.0.1:58423/session/e4b70acb42f5d6f6cebd1caae993b648/source {"sessionId": "e4b70acb42f5d6f6cebd1caae993b648"}
+2019-05-09 15:39:47 [urllib3.connectionpool] DEBUG: http://127.0.0.1:58423 "GET /session/e4b70acb42f5d6f6cebd1caae993b648/source HTTP/1.1" 200 485145
+2019-05-09 15:39:47 [selenium.webdriver.remote.remote_connection] DEBUG: Finished Request
+2019-05-09 15:39:47 [selenium.webdriver.remote.remote_connection] DEBUG: GET http://127.0.0.1:58423/session/e4b70acb42f5d6f6cebd1caae993b648/url {"sessionId": "e4b70acb42f5d6f6cebd1caae993b648"}
+2019-05-09 15:39:47 [urllib3.connectionpool] DEBUG: http://127.0.0.1:58423 "GET /session/e4b70acb42f5d6f6cebd1caae993b648/url HTTP/1.1" 200 164
+2019-05-09 15:39:47 [selenium.webdriver.remote.remote_connection] DEBUG: Finished Request
+2019-05-09 15:39:47 [scrapy.core.engine] DEBUG: Crawled (200) <GET https://list.tmall.com/search_product.htm?q=%C5%AE%D7%B0&type=p&spm=a220m.1000858.a2227oh.d100> (referer: None)
+2019-05-09 15:39:47 [scrapy.core.scraper] ERROR: Spider error processing <GET https://list.tmall.com/search_product.htm?q=%C5%AE%D7%B0&type=p&spm=a220m.1000858.a2227oh.d100> (referer: None)
+Traceback (most recent call last):
+  File "C:\Program Files\Anaconda3\lib\site-packages\twisted\internet\defer.py", line 654, in _runCallbacks
+    current.result = callback(current.result, *args, **kw)
+  File "D:\python\python_spider\scrapy_demo\tmall_spider_v1\tmall_spider_v1\spiders\tmall_spider.py", line 19, in parse
+    item['productTitle'] = div.xpath("./p[@class='productTitle']/a/@title").get()
+  File "C:\Program Files\Anaconda3\lib\site-packages\scrapy\item.py", line 66, in __setitem__
+    (self.__class__.__name__, key))
+KeyError: 'TmallSpiderV1Item does not support field: productTitle'
+2019-05-09 15:39:47 [scrapy.core.engine] INFO: Closing spider (finished)
+2019-05-09 15:39:47 [scrapy.statscollectors] INFO: Dumping Scrapy stats:
+{'downloader/response_bytes': 436704,
+ 'downloader/response_count': 1,
+ 'downloader/response_status_count/200': 1,
+ 'finish_reason': 'finished',
+ 'finish_time': datetime.datetime(2019, 5, 9, 7, 39, 47, 579769),
+ 'log_count/DEBUG': 15,
+ 'log_count/ERROR': 1,
+ 'log_count/INFO': 7,
+ 'response_received_count': 1,
+ 'scheduler/dequeued': 1,
+ 'scheduler/dequeued/memory': 1,
+ 'scheduler/enqueued': 1,
+ 'scheduler/enqueued/memory': 1,
+ 'spider_exceptions/KeyError': 1,
+ 'start_time': datetime.datetime(2019, 5, 9, 7, 39, 41, 964308)}
+2019-05-09 15:39:47 [scrapy.core.engine] INFO: Spider closed (finished)

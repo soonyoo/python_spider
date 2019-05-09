@@ -30,15 +30,17 @@ class JianshuV2Pipeline(object):
             item['origin_url']))
         self.conn.commit()
         return item
+        
+    @property
+    def sql(self):
+        if not self._sql:
+            self._sql = \"\"\"
+                  insert into article(title,content,author,avatar,pub_time,article_id,origin_url) values (%s,%s,%s,%s,%s,%s,%s)
+                  \"\"\"
+            return self._sql
+        return self._sql
+
 """
-    # @property
-    # def sql(self):
-    #     if not self._sql:
-    #         self._sql = """
-    #               insert into article(title,content,author,avatar,pub_time,article_id,origin_url) values (%s,%s,%s,%s,%s,%s,%s)
-    #               """
-    #         return self._sql
-    #     return self._sql
 
 
 class JianshuTwistedPipeline(object):

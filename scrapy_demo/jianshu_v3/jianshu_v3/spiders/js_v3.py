@@ -4,6 +4,7 @@ from scrapy.linkextractors import LinkExtractor
 from scrapy.spiders import CrawlSpider, Rule
 from jianshu_v3.items import ArticleItem
 
+
 class JsV3Spider(CrawlSpider):
     name = 'js_v3'
     allowed_domains = ['jianshu.com']

@@ -6,6 +6,7 @@
 # https://doc.scrapy.org/en/latest/topics/spider-middleware.html
 
 from scrapy import signals
+
 from selenium import webdriver
 import time
 from scrapy.http.response.html import HtmlResponse
@@ -18,20 +19,8 @@ class SeleniumDownloadMiddleware(object):
 
     def process_request(self, request, spider):
         self.browser.get(request.url)
-        time.sleep(1)
-        # 点击[展开更多] > (如果有，一直点下去。。。)
-        try:
-            while True:
-                show_more = self.browser.find_elements_by_class_name('show-more')
-                show_more.click()
-                time.sleep(0.3)
-                if not show_more:
-                    break
-        except Exception as ex:
-            print(ex)
-            # pass
-
+        time.sleep(3)
         source = self.browser.page_source
+        # print(source)
         response = HtmlResponse(url=self.browser.current_url, body=source, request=request, encoding='utf-8')
         return response
-
