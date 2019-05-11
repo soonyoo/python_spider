@@ -2,7 +2,7 @@
 
 import requests
 from lxml import etree
-from db_util import DBUtil
+from mongoDB_util import DBUtil
 
 """
 爬取豆瓣电影内容【正在上映】

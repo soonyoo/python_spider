@@ -19,7 +19,7 @@ class RenrenLogin(object):
         time.sleep(2)
         browser.find_element_by_id('login').click()
 
-        time.sleep(20)
+        time.sleep(50)
 
 
 if __name__ == '__main__':

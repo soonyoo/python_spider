@@ -13,7 +13,7 @@ class XiciSpider(scrapy.Spider):
     # 初始request
     def start_requests(self):
         reqs = []
-        for i in range(1, 3):
+        for i in range(1, 5):
             req = scrapy.Request('https://www.xicidaili.com/nn/{}'.format(i))
             reqs.append(req)
         return reqs

@@ -114,14 +114,15 @@ class ChinaUincom(object):
 
 if __name__ == '__main__':
     chinaUincom = ChinaUincom()
+    chinaUincom.get_data(1, 20)
     # 只分析一页
     # biao_list = chinaUincom.parse()
     # for biao in biao_list:
     #     print(biao)
     # 多页分析
-    # biao_list = chinaUincom.get_data(1, 3)
-    # for biao in biao_list:
-    #     print(biao)
+    biao_list = chinaUincom.get_data(1, 3)
+    for biao in biao_list:
+        print(biao)
 
     # dict1 = chinaUincom.parse_detail('http://gd.chinaunicombidding.cn/jsp/cnceb/web/info1/detailNotice.jsp?id=2863703300000014997')
     # print(dict1)

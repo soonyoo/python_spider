@@ -1,4 +1,5 @@
 # -*- coding: utf-8 -*-
+from pymysql import cursors
 
 # Scrapy settings for jianshu_v2 project
 #
@@ -91,3 +92,13 @@ ITEM_PIPELINES = {
 #HTTPCACHE_DIR = 'httpcache'
 #HTTPCACHE_IGNORE_HTTP_CODES = []
 #HTTPCACHE_STORAGE = 'scrapy.extensions.httpcache.FilesystemCacheStorage'
+
+# DATABASE SETTING
+DB_PARAMS = {
+            'host': '127.0.0.1',
+            'user': 'root',
+            'password': 'QAZ123qaz#',
+            'database': 'jianshu',
+            'charset': 'utf8',
+            'cursorclass': cursors.DictCursor
+        }

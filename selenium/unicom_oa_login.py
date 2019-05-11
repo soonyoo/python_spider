@@ -1,6 +1,6 @@
 # coding = utf-8
 from selenium import webdriver
-# from selenium.webdriver.common.keys import Keys
+# from selenium.webdriver.common.keys import KeysWebDriverWait
 # import requests
 from lxml import etree
 # from urllib import request
@@ -126,6 +126,9 @@ class OALogin(object):
                 # 4.10.1 构造播放地址(从返回json数据中获取相应信息)
                 browser.get(self.class_api_url)
                 html = browser.page_source
+                # print('*' * 40)
+                # print(html)
+                # print('*' * 40)
                 json_text_dict = OALogin.html_to_json(html)
                 # print(type(json_text_dict))
                 course_content_lists = json_text_dict["content"]
