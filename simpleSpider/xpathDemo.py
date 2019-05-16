@@ -14,6 +14,33 @@ text = '''
 </div>
 '''
 
+html_text = """
+<div>
+    <a id="1" href="www.baidu.com">我是第1个a标签</a>
+    <p>我是p标签</p>
+    <a id="2" href="www.baidu.com">我是第2个a标签</a>
+    <a id="3" href="www.baidu.com">我是第3个a标签</a>
+    <a id="4" href="www.baidu.com">我是第4个a标签</a>
+    <p>我是p标签</p>
+    <a id="5" href="www.baidu.com">我是第5个a标签</a>
+</div>
+
+获取第三个a标签的下一个a标签："//a[@id='3']/following-sibling::a[1]"
+
+获取第三个a标签后面的第N个标签："//a[@id='3']/following-sibling::*[N]"
+
+获取第三个a标签的上一个a标签："//a[@id='3']/preceding-sibling::a[1]"
+
+获取第三个a标签的前面的第N个标签："//a[@id='3']/preceding-sibling::*[N]"
+
+获取第三个a标签的父标签："//a[@id=='3']/.."
+--------------------- 
+作者：qq_37059367 
+来源：CSDN 
+原文：https://blog.csdn.net/qq_37059367/article/details/83819828 
+版权声明：本文为博主原创文章，转载请附上博文链接！
+"""
+
 
 class XpathAndLxml:
     def __init__(self):
@@ -45,6 +72,9 @@ class XpathAndLxml:
         # self.result = etree.tostring(html, encoding='utf-8').decode('utf-8')
         # return self.result
         return html
+
+    # xpath获取当前标签的兄弟节点，父节点
+
 
 
 if __name__ == '__main__':

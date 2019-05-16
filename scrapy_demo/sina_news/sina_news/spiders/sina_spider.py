@@ -5,14 +5,18 @@ from scrapy.spiders import CrawlSpider, Rule
 
 from sina_news.items import SinaNewsItem
 
+import time
+
 
 class SinaSpiderSpider(CrawlSpider):
     name = 'sina_spider'
     allowed_domains = ['news.sina.com.cn']
     start_urls = ['http://news.sina.com.cn/']
 
+    # https://news.sina.com.cn/c/2019-05-08/doc-ihvhiews0469443.shtml
+    ymd = time.strftime("%Y-%m-%d", time.localtime())
     rules = (
-        Rule(LinkExtractor(allow=r'.+/[a-z]{1}/2019-05-08/doc-[0-9a-z]{15}\.shtml'), callback="parse_detail", follow=False),
+        Rule(LinkExtractor(allow=r'.+/[a-z]{1}/%s/doc-[0-9a-z]{15}\.shtml' % ymd), callback="parse_detail", follow=False),
     )
 
     def parse_detail(self, response):

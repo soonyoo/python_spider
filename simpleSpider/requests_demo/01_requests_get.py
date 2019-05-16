@@ -32,23 +32,26 @@ class RequestBaiDu(object):
         # print(type(response.text))
         # 1.1 直指写定encoding:(不推荐，可能仍然乱码，因为不一定是你指定的encoding)
         # response.encoding = 'utf-8'
-        # 1.2 获取encoding后，再指定（动态指定，推荐使用）
-        encoding = response.encoding
-        print(encoding)
-        response.encoding = encoding
-        print(response.text)
+        # 1.2 获取encoding后，再指定（动态指定，推荐使用），
+        # 注意：好像不是这样：如（https://www.12306.cn/mormhweb/）response.encoding为ISO-8859-1，
+        # 但还是要写死utf-8才正常显示中文，还是要多测试，多总结
+        # encoding = response.encoding
+        # print(encoding)
+        # response.encoding = encoding
+        # print(response.text)
 
         # 2. response.url：获取请求的url,status_code,headers
-        print(response.url)
-        print(response.status_code)
+        # print(response.url)
+        # print(response.status_code)
         # print(response.headers)
 
         # 3.response.content: 字节(bytes)方式的响应体，会自动为你解码 gzip 和 deflate 压缩
         # 3.1 直接输出的话，会以bytes形式显示
-        # content = response.content
+        content = response.content
         # 3.2 decode一下，才会中文显示正常
         # content = response.content.decode('utf-8')
-        # print(content)
+        content = response.content.decode()
+        print(content)
 
         # 4.获取网页的encoding：response.encoding
         # encoding = response.encoding

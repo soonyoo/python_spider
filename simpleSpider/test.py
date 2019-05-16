@@ -88,9 +88,14 @@ class Test(object):
 
 
 if __name__ == '__main__':
-    html = Test.get_html()
-    dict1 = Test.html_to_json(html)
-    print(dict1)
+    list1 = [1, 2, 3, 4, 5, 6]
+    for i, val in enumerate(list1):
+        print("序号：", i, "  值：", val)
+
+    # html = Test.get_html()
+    # dict1 = Test.html_to_json(html)
+    # print(dict1)
+
     # list1 = Test.start_req()
     # for lis in list1:
     #     print(lis)
@@ -135,17 +140,17 @@ if __name__ == '__main__':
 
     # test = Test()
 
-    html = """
-    <span style="color: rgb(0, 51, 51); size: 2px; text-decoration: none; cursor: pointer;" 
-    onmouseover="this.style.color=&quot;#ff3333&quot;" 
-    onmouseout="this.style.color=&quot;#003333&quot;" 
-    onclick="window.open(&quot;/jsp/cnceb/web/info1/detailNotice.jsp?id=2875703300000014418&quot;,&quot;&quot;,&quot;
-    height=600,width=900,left=60,toolbar=yes,
-    menubar=yes,scrollbars=yes,resizable=yes,status=yes&quot;);"
-    title="2019年中国联通广东湛江LTEFDD室分口碑场景新建一期工程湛江工程项目直放站采购项目(第二次）竞争性谈判公告">2019年中国联通广东湛江LTEFDD室分口碑场景新建一期工程湛江工程...
-									
-									</span>
-    """
+    # html = """
+    # <span style="color: rgb(0, 51, 51); size: 2px; text-decoration: none; cursor: pointer;"
+    # onmouseover="this.style.color=&quot;#ff3333&quot;"
+    # onmouseout="this.style.color=&quot;#003333&quot;"
+    # onclick="window.open(&quot;/jsp/cnceb/web/info1/detailNotice.jsp?id=2875703300000014418&quot;,&quot;&quot;,&quot;
+    # height=600,width=900,left=60,toolbar=yes,
+    # menubar=yes,scrollbars=yes,resizable=yes,status=yes&quot;);"
+    # title="2019年中国联通广东湛江LTEFDD室分口碑场景新建一期工程湛江工程项目直放站采购项目(第二次）竞争性谈判公告">2019年中国联通广东湛江LTEFDD室分口碑场景新建一期工程湛江工程...
+	#
+	# 								</span>
+    # """
     # html = etree.HTML(html)
     # span = html.xpath('//span')[0]
     # span_title = span.xpath("@title")[0]

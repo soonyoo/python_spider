@@ -106,10 +106,13 @@ class OALogin(object):
                 # 4.2 输入[学院]
                 browser.find_element(By.ID, 'seachKey').send_keys('学院')
                 # 4.3 点击[搜索应用]
+                time.sleep(2)
                 browser.find_element_by_xpath('//*[@id="page-top"]/div[2]/dl/dd/p[1]/a[1]').click()
                 # 4.4 显示等待[网络学院]
+                time.sleep(2)
                 WebDriverWait(browser, 6).until(EC.presence_of_element_located((By.ID, 'sub_count_link-na058')))
                 # 4.5 点击[网络学院]
+                time.sleep(2)
                 browser.find_element_by_xpath('//*[@id="page-body"]/div[2]/div/div/div/a').click()
                 # 4.6 切换窗口
                 browser.switch_to.window(browser.window_handles[1])

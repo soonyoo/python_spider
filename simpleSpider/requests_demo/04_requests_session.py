@@ -15,10 +15,9 @@ class LoginRenRen(object):
     def login_renren(self):
         self.session.post(self.url, headers=self.headers, data=self.data)
         response = self.session.get(self.profile)
-        html = response.content.decode('utf-8')
+        html = response.content.decode()
         with open('renren.html', 'w', encoding='utf-8') as fp:
             fp.write(html)
-        # print(html)
 
 
 if __name__ == '__main__':
