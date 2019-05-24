@@ -78,4 +78,3 @@ if __name__ == '__main__':
     for new in list_news:
 
         print(new)
-
