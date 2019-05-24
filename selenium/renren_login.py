@@ -13,12 +13,12 @@ class RenrenLogin(object):
         # 第1步：打开浏览器
         browser = webdriver.Chrome(executable_path=self.driver_path)
         browser.get(self.home_url)
-        browser.find_element_by_id('email').send_keys('soonyoo@126.com')
+        browser.find_element_by_id('email').send_keys('你的人人网帐号')
         time.sleep(2)
-        browser.find_element_by_id('password').send_keys('666666,./')
+        browser.find_element_by_id('password').send_keys('你的密码')
         time.sleep(2)
         browser.find_element_by_id('login').click()
-
+        # sleep50秒，演示、测试用
         time.sleep(50)
 
 

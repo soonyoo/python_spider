@@ -50,10 +50,10 @@ class DouBanMovie:
 if __name__ == '__main__':
     douban = DouBanMovie()
     # 入库
-    dbUtil = DBUtil('douban_movie')
     movie_list = douban.parse_douban()
-    dbUtil.insert_many_db(movie_list)
-    # for movie in movie_list:
-    #     print(movie)
+    # dbUtil = DBUtil('douban_movie')
+    # dbUtil.insert_many_db(movie_list)
+    for movie in movie_list:
+        print(movie)
 
 

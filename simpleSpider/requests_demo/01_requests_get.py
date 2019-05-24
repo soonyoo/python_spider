@@ -26,7 +26,7 @@ class RequestBaiDu(object):
         params = {'query': 'python'}
         url = 'https://www.sogou.com/web'
         headers = {'user-agent': 'Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/74.0.3724.8 Safari/537.36'}
-        response = requests.get(url=url, params=params, headers=headers)
+        response = requests.get(url=url,params=params, headers=headers)
 
         # 1. response.text 返回unicode格式数据,会中文乱码,使用response.encoding解决
         # print(type(response.text))

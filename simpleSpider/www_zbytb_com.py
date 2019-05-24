@@ -73,13 +73,12 @@ class ZhaoBiaoWang(object):
 
 
 if __name__ == '__main__':
-    pass
-
-    # zhaobiao = ZhaoBiaoWang()
-    # lis = zhaobiao.get_data()
+    # pass
+    zhaobiao = ZhaoBiaoWang()
+    lis = zhaobiao.get_data()
     # 1.print输出
-    # for li in lis:
-    #     print(lis)
+    for li in lis:
+        print(lis)
     # 2.保存成json文件
     # ZhaoBiaoWang.dump_save_file(lis, 'biao.json', 'utf-8')
     # 3.保存到mongoDB

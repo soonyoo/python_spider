@@ -30,9 +30,27 @@ class OptCsv(object):
             writer.writeheader()
             writer.writerows(values)
 
+    @staticmethod
+    def write_csv_opt3():
+        """
+        使用这种方式，保存的数据，用excel直接打开，不会乱码
+        :return:
+        """
+        headers = ['username', 'age', 'height']
+        values = [
+            {'username': '张三', 'age': 18, 'height': 180},
+            {'username': '李四', 'age': 19, 'height': 190},
+            {'username': '王五', 'age': 20, 'height': 160}
+        ]
+        with open('class_room3.csv', 'w', encoding='utf_8_sig', newline='') as fp:
+            writer = csv.DictWriter(fp, headers)
+            # 写入表头数据时，需要调用writeheader方法
+            writer.writeheader()
+            writer.writerows(values)
+
 
 if __name__ == '__main__':
     opt = OptCsv()
-    opt.write_csv_opt2()
+    opt.write_csv_opt3()
 
 

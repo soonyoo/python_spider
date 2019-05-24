@@ -64,12 +64,15 @@ class ChinaUincom(object):
         :param end_page:
         :return:
         """
+        #           http://gd.chinaunicombidding.cn/jsp/cnceb/web/info1/infoList.jsp?page=2
         base_url = 'http://gd.chinaunicombidding.cn/jsp/cnceb/web/info1/infoList.jsp?page={}'
         for x in range(start_page, end_page):
             outside_url = base_url.format(x)
             response = requests.get(outside_url, headers=self.headers)
             html = etree.HTML(response.text)
-            trs = html.xpath("//div[@id='div1']/table/tr")
+            trs = html.xpath("//div[@id='div1']/table/tbody/tr")
+            print('-' * 40)
+            print(len(trs))
             for tr in trs:
                 tds = tr.xpath('./td')
                 span = tds[0].xpath('./span')[0]
@@ -77,12 +80,13 @@ class ChinaUincom(object):
                 self.biao_dict["pub_date"] = tds[1].xpath('./text()')[0]
                 self.biao_dict["city"] = tds[2].xpath('@title')[0]
                 # 获取url
-                urls = span.xpath("@onclick")[0]
-                urls_s = urls.find('\"')
-                urls_e = urls.find('\"', urls_s + 1)
-                url = urls[urls_s+1:urls_e]
-                full_url = self.base_url + url
-                self.biao_dict["content_url"] = full_url
+                # urls = span.xpath("@onclick")[0]
+                # urls_s = urls.find('\"')
+                # urls_e = urls.find('\"', urls_s + 1)
+                # url = urls[urls_s+1:urls_e]
+                # full_url = self.base_url + url
+                # self.biao_dict["content_url"] = full_url
+
                 # content_dict = self.parse_detail(full_url)
                 # self.biao_dict["s_id"] = self.parse_detail(full_url)
                 # self.biao_dict["content"] = content_dict["content"]
@@ -114,7 +118,7 @@ class ChinaUincom(object):
 
 if __name__ == '__main__':
     chinaUincom = ChinaUincom()
-    chinaUincom.get_data(1, 20)
+    # chinaUincom.get_data(1, 10)
     # 只分析一页
     # biao_list = chinaUincom.parse()
     # for biao in biao_list:

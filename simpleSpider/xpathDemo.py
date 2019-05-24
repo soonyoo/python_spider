@@ -61,17 +61,19 @@ class XpathAndLxml:
 
     # 解析html文件
     def parse_html(self, file_name):
-        html = etree.parse(file_name)
-        self.result = etree.tostring(html, encoding='utf-8').decode('utf-8')
-        return self.result
+        parser = etree.HTMLParser(encoding='utf-8')
+        html_content = etree.parse(file_name, parser=parser)
+        return html_content
+        # self.result = etree.tostring(html, encoding='utf-8').decode('utf-8')
+        # return self.result
 
     # 增加解析器参数，防止html不规范导致的报错。
     def good_parse_html(self, file_name):
         parser = etree.HTMLParser(encoding='utf-8')
-        html = etree.parse(file_name, parser=parser)  # 指定是HTML解析器
+        html_content = etree.parse(file_name, parser=parser)  # 指定是HTML解析器
         # self.result = etree.tostring(html, encoding='utf-8').decode('utf-8')
         # return self.result
-        return html
+        return html_content
 
     # xpath获取当前标签的兄弟节点，父节点
 

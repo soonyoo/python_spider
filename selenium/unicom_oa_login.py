@@ -61,10 +61,10 @@ class OALogin(object):
 
         # 第2步：输入用户名、密码、验证码
         # ## 2.1 查找[用户名]的输入框,并输入[用户名]
-        browser.find_element_by_id('login').send_keys('xuwy30')
+        browser.find_element_by_id('login').send_keys('###')
         time.sleep(1)
         # ## 2.2 查找[密码]的输入框,并输入[密码]
-        browser.find_element_by_id('password').send_keys('xiaoxiG00DQAZ')
+        browser.find_element_by_id('password').send_keys('####')
         time.sleep(1)
 
         # 第3步：保存图片，识别图片，输入识别码
