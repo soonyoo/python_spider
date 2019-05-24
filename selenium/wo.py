@@ -41,10 +41,10 @@ class WO(object):
 
         # 第2步：输入用户名、密码、验证码
         # ## 2.1 查找[用户名]的输入框,并输入[用户名]
-        browser.find_element_by_id('phoneNumber').send_keys('fs13250116688')
+        browser.find_element_by_id('phoneNumber').send_keys('#####')
         time.sleep(1)
         # ## 2.2 查找[密码]的输入框,并输入[密码]
-        browser.find_element_by_id('pwd').send_keys('Yuxm353866')
+        browser.find_element_by_id('pwd').send_keys('#####')
         time.sleep(1)
 
         # ##3.点击登陆
