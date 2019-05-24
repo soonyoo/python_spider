@@ -7,9 +7,9 @@ python 基础
 ```buildoutcfg
 mongodb
 ```
-## 3 scrapy
+## 3 scrapy_demo
 ```buildoutcfg
-srapy案例
+srapy 案例 
 ```
 ## 4 selenium
 ```buildoutcfg
