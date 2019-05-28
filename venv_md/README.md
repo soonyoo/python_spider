@@ -1,4 +1,4 @@
-# python 创建虚拟环境--virtualenv
+# 一、widnows下 python 创建虚拟环境--virtualenv
 
 ## 1.什么是虚拟环境
 Python虚拟环境的主要目的是为了给不同的工程创建互相独立的运行环境。在虚拟环境下，每一个工程都有自己的依赖包，而与其它的工程无关。不同的虚拟环境中同一个包可以有不同的版本。并且，虚拟环境的数量没有限制，我们可以轻松地用virtualenv或者pyenv等工具来创建多个虚拟环境。
@@ -55,10 +55,9 @@ cmd终端运行 ` pip install virtualenv `
 
 
 
-
-
-
-
+# 二、linux创建Python虚拟环境及配置
+linux虚拟环境的安装与windows没多大区别，直接用一副清晰的流程图解析一下。  
+![007_linux下创建虚拟环境](media/20180616204954162.png) 
 
 
 
