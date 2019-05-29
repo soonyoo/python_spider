@@ -38,9 +38,20 @@ cmd终端运行 ` pip install virtualenv `
 ![002_查看虚拟环境](media/20190529060137.png)￼
 
 #### 2.2.5 创建虚拟环境
-使用命令mkvirtualenv spider_env（这个虚拟环境名称可以随意起），
-创建成功后直接进入虚拟环境spider_env  
+##### 2.2.5.1 mkvirtualenv 虚拟环境名
+>使用命令mkvirtualenv spider_env（这个虚拟环境名称可以随意起），创建成功后直接进入虚拟环境spider_env  
+
 ![003_创建虚拟环境](media/20190529061234.png)￼
+
+##### 2.2.5.2 指定python版本
+```shell
+mkvirtualenv -p "C:\Program Files\Python\Python37\python.exe" env_py3.7.3
+```
+![003_2指定python版本](media/20190529085245.png)
+
+
+
+20190529084621.png
 
 #### 2.2.6 使用 workon 查看已存在的虚拟环境
 `workon`  
@@ -59,6 +70,16 @@ cmd终端运行 ` pip install virtualenv `
 linux虚拟环境的安装与windows没多大区别，直接用一副清晰的流程图解析一下。  
 ![007_linux下创建虚拟环境](media/20180616204954162.png) 
 
+# 三、生成requirement 使用requirements.txt
+python项目中必须包含一个 requirements.txt 文件，用于记录所有依赖包及其精确的版本号。以便新环境部署
+```shell
+#生成requirements.txt文件
+pip freeze > requirements.txt
+#安装requirements.txt依赖
+pip install -r requirements.txt
+```
+
+>参考文章：https://blog.csdn.net/sinat_41898105/article/details/80714974
 
 
 
