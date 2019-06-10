@@ -57,12 +57,13 @@ class NeteasyRank(object):
                 ###################
                 #                             id,url,type,title,click_num) values (%s,%s,%s,%s,%s)
                 #
-                self.cursor.execute(self.sql, (self.news['id'], self.news['title_id'], self.news['url'],
-                                               self.news['type'], self.news['title'],
-                                               self.news['click_num'])
-                                    )
-
-                self.conn.commit()
+                # 需要入库时开启下面代码
+                # self.cursor.execute(self.sql, (self.news['id'], self.news['title_id'], self.news['url'],
+                #                                self.news['type'], self.news['title'],
+                #                                self.news['click_num'])
+                #                     )
+                #
+                # self.conn.commit()
 
                 self.news_list.append(self.news)
                 self.news = {}
@@ -73,8 +74,7 @@ class NeteasyRank(object):
 if __name__ == '__main__':
     net163 = NeteasyRank()
     list_news = net163.parse()
-    print(net163.sql)
+    # print(net163.sql)
 
     for new in list_news:
-
         print(new)

@@ -49,10 +49,6 @@ mkvirtualenv -p "C:\Program Files\Python\Python37\python.exe" env_py3.7.3
 ```
 ![003_2指定python版本](media/20190529085245.png)
 
-
-
-20190529084621.png
-
 #### 2.2.6 使用 workon 查看已存在的虚拟环境
 `workon`  
 ![004_查看存在的虚拟环境](media/20190529061505.png)￼
@@ -64,7 +60,28 @@ mkvirtualenv -p "C:\Program Files\Python\Python37\python.exe" env_py3.7.3
 `deactivate`  
 ![006_退出虚拟环境](media/20190529062508.png)
 
+#### 2.2.9 删除虚拟环境
+直接敲命令rmvirtualenv 虚拟目录
+```shell
+C:\Users\64174>lsvirtualenv
 
+dir /b /ad "C:\Users\64174\python_envs"
+==============================================================================
+env_py3.7.3
+spider_env
+
+C:\Users\64174>rmvirtualenv env_py3.7.3
+
+    Deleted C:\Users\64174\python_envs\env_py3.7.3
+
+
+C:\Users\64174>lsvirtualenv
+
+dir /b /ad "C:\Users\64174\python_envs"
+==============================================================================
+spider_env
+
+```
 
 # 二、linux创建Python虚拟环境及配置
 linux虚拟环境的安装与windows没多大区别，直接用一副清晰的流程图解析一下。  
@@ -78,6 +95,16 @@ pip freeze > requirements.txt
 #安装requirements.txt依赖
 pip install -r requirements.txt
 ```
+
+# 四、pyCharm设置虚拟环境
+## 4.1 File -- setting
+![008_setting](media/20190529172031.png)
+## 4.2 Project:***--Project Interpreter
+![009_setting](media/20190529172554.png)
+## 4.3 添加环境
+![009_setting](media/20190529173311.png)
+
+
 
 >参考文章：https://blog.csdn.net/sinat_41898105/article/details/80714974
 

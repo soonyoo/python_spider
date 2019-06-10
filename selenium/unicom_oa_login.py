@@ -22,13 +22,14 @@ class OALogin(object):
     def __init__(self):
         self.home_url = 'http://sso.portal.unicom.local/eip_sso/ssoLogin.html?appid=np000&success=http://www.portal.unicom.local/user/token'
         self.driver_path = r'D:\python\chromedriver\chromedriver.exe'
-        self.img_path = r'C:\Users\64174\Downloads\ValidateImage.jpg'
+        # self.img_path = r'C:\Users\64174\Downloads\ValidateImage.jpg'
+        self.img_path = r'D:\python\python_spider\selenium\verifyCode.jpg'
         self.base_mp4_url = 'http://content.wsxy.chinaunicom.com'
         self.class_api_url = 'http://wsxy.chinaunicom.cn/api/learner/subject/49651475/courses?status=&groupId=&page=0&size=50&name='
         self.base_class_url = 'http://wsxy.chinaunicom.cn/learner/play/course'
         # 判断文件是否存在(如果存在，删除)
-        if os.path.exists(self.img_path):
-            os.remove(self.img_path)
+        # if os.path.exists(self.img_path):
+        #     os.remove(self.img_path)
             # print('成功移除文件：%s' % self.img_path)
 
     # 验证码图片文字识别
@@ -205,4 +206,6 @@ class OALogin(object):
 
 if __name__ == '__main__':
     userLogin = OALogin()
-    userLogin.down_load_mp4()
+    # userLogin.down_load_mp4()
+    ocr = userLogin.ocr_identification_code()
+    print(ocr)
