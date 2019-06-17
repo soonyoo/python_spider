@@ -63,6 +63,15 @@ pip install Scrapy
 ```shell
 conda install -c conda-forge scrapy
 ```
+- 查看scrapy版本  
+scrapy version
+```shell
+$ (my_spiders) D:\python\python_spider>scrapy version
+Scrapy 1.6.0
+
+```
+
+
 ## 4.入门案例
 - 学习目标:
 1. 创建一个Scrapy项目

@@ -8,7 +8,8 @@ import re
 class XiciSpider(scrapy.Spider):
     name = 'xici'
     allowed_domains = ['xicidaili.com']
-    start_urls = ['https://www.xicidaili.com/nn/1']
+    # 如果重写了start_requests，start_urls可以不写了。
+    # start_urls = ['https://www.xicidaili.com/nn/1']
 
     # 初始request
     def start_requests(self):
