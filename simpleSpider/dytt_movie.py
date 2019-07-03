@@ -26,7 +26,7 @@ class DyttMovieParse:
         # return response.text
 
     def get_movie_url_list(self, outside_url):
-        html = etree.HTML(self.get_html_from_url(outside_url,'GBK'))
+        html = etree.HTML(self.get_html_from_url(outside_url, 'GBK'))
         urls = html.xpath('//a[@class="ulink"]/@href')
         for url in urls:
             self.URL_LIST.append(self.BASE_URL+url)

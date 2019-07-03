@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-# Scrapy settings for xici_spider project
+# Scrapy settings for dytt_movie project
 #
 # For simplicity, this file contains only settings considered important or
 # commonly used. You can find more settings consulting the documentation:
@@ -9,14 +9,14 @@
 #     https://doc.scrapy.org/en/latest/topics/downloader-middleware.html
 #     https://doc.scrapy.org/en/latest/topics/spider-middleware.html
 
-BOT_NAME = 'xici_spider'
+BOT_NAME = 'dytt_movie'
 
-SPIDER_MODULES = ['xici_spider.spiders']
-NEWSPIDER_MODULE = 'xici_spider.spiders'
+SPIDER_MODULES = ['dytt_movie.spiders']
+NEWSPIDER_MODULE = 'dytt_movie.spiders'
 
 
 # Crawl responsibly by identifying yourself (and your website) on the user-agent
-#USER_AGENT = 'xici_spider (+http://www.yourdomain.com)'
+#USER_AGENT = 'dytt_movie (+http://www.yourdomain.com)'
 
 # Obey robots.txt rules
 ROBOTSTXT_OBEY = False
@@ -27,7 +27,7 @@ ROBOTSTXT_OBEY = False
 # Configure a delay for requests for the same website (default: 0)
 # See https://doc.scrapy.org/en/latest/topics/settings.html#download-delay
 # See also autothrottle settings and docs
-DOWNLOAD_DELAY = 3
+#DOWNLOAD_DELAY = 3
 # The download delay setting will honor only one of:
 #CONCURRENT_REQUESTS_PER_DOMAIN = 16
 #CONCURRENT_REQUESTS_PER_IP = 16
@@ -43,19 +43,18 @@ DEFAULT_REQUEST_HEADERS = {
   'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8',
   'Accept-Language': 'en',
   'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 '
-                '(KHTML, like Gecko) Chrome/71.0.3578.98 Safari/537.36',
+                  '(KHTML, like Gecko) Chrome/71.0.3578.98 Safari/537.36',
 }
-
 # Enable or disable spider middlewares
 # See https://doc.scrapy.org/en/latest/topics/spider-middleware.html
 #SPIDER_MIDDLEWARES = {
-#    'xici_spider.middlewares.XiciSpiderSpiderMiddleware': 543,
+#    'dytt_movie.middlewares.DyttMovieSpiderMiddleware': 543,
 #}
 
 # Enable or disable downloader middlewares
 # See https://doc.scrapy.org/en/latest/topics/downloader-middleware.html
 #DOWNLOADER_MIDDLEWARES = {
-#    'xici_spider.middlewares.XiciSpiderDownloaderMiddleware': 543,
+#    'dytt_movie.middlewares.DyttMovieDownloaderMiddleware': 543,
 #}
 
 # Enable or disable extensions
@@ -67,7 +66,7 @@ DEFAULT_REQUEST_HEADERS = {
 # Configure item pipelines
 # See https://doc.scrapy.org/en/latest/topics/item-pipeline.html
 ITEM_PIPELINES = {
-   'xici_spider.pipelines.XiciSpiderPipeline': 300,
+   'dytt_movie.pipelines.DyttMoviePipeline': 300,
 }
 
 # Enable and configure the AutoThrottle extension (disabled by default)
@@ -90,9 +89,3 @@ ITEM_PIPELINES = {
 #HTTPCACHE_DIR = 'httpcache'
 #HTTPCACHE_IGNORE_HTTP_CODES = []
 #HTTPCACHE_STORAGE = 'scrapy.extensions.httpcache.FilesystemCacheStorage'
-
-# DATABASE CONFIG
-DBKWARGS = {
-    'db': 'xici', 'user': 'root', 'password': 'QAZ123qaz#',
-    'host': 'localhost', 'charset': 'utf8'
-}

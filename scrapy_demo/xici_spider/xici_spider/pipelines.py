@@ -20,14 +20,15 @@ class XiciSpiderPipeline(object):
         self._sql = None
 
     def process_item(self, item, spider):
-        # print(item)
-        try:
-            self.cursor.execute(self.sql, (item['ip'], item['port'], item['position'], item['type'], item['speed'], item['last_check_time']))
-            self.conn.commit()
-        except Exception as ex:
-            print('Insert Error' + str(ex))
-            self.conn.rollback()
-        return item
+        print(item)
+        # 如果入库，打开下面注释
+        # try:
+        #     self.cursor.execute(self.sql, (item['ip'], item['port'], item['position'], item['type'], item['speed'], item['last_check_time']))
+        #     self.conn.commit()
+        # except Exception as ex:
+        #     print('Insert Error' + str(ex))
+        #     self.conn.rollback()
+        # return item
 
     @property
     def sql(self):

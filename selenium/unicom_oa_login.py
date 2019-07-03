@@ -16,21 +16,22 @@ import pyautogui
 import json
 from bs4 import BeautifulSoup
 from urllib import request
+import yaml
 
 
 class OALogin(object):
     def __init__(self):
         self.home_url = 'http://sso.portal.unicom.local/eip_sso/ssoLogin.html?appid=np000&success=http://www.portal.unicom.local/user/token'
         self.driver_path = r'D:\python\chromedriver\chromedriver.exe'
-        # self.img_path = r'C:\Users\64174\Downloads\ValidateImage.jpg'
-        self.img_path = r'D:\python\python_spider\selenium\verifyCode.jpg'
+        self.img_path = r'C:\Users\64174\Downloads\ValidateImage.jpg'
+        # self.img_path = r'D:\python\python_spider\selenium\verifyCode.jpg'
         self.base_mp4_url = 'http://content.wsxy.chinaunicom.com'
         self.class_api_url = 'http://wsxy.chinaunicom.cn/api/learner/subject/49651475/courses?status=&groupId=&page=0&size=50&name='
         self.base_class_url = 'http://wsxy.chinaunicom.cn/learner/play/course'
         # 判断文件是否存在(如果存在，删除)
-        # if os.path.exists(self.img_path):
-        #     os.remove(self.img_path)
-            # print('成功移除文件：%s' % self.img_path)
+        if os.path.exists(self.img_path):
+            os.remove(self.img_path)
+            print('成功移除文件：%s' % self.img_path)
 
     # 验证码图片文字识别
     def ocr_identification_code(self):
@@ -40,6 +41,17 @@ class OALogin(object):
         verify_code = verify_code.replace(' ', '')
         # print(verify_code)
         return verify_code
+
+    # 读取配置文件
+    @staticmethod
+    def read_yaml_file():
+        # 获取yaml文件路径
+        cur_path = os.path.dirname(os.path.realpath(__file__))
+        yaml_file = os.path.join(cur_path, "unicom_oa_config.yaml")
+        with open(yaml_file, 'r', encoding='utf-8') as fp:
+            cfg = fp.read()
+            cfg_dict = yaml.load(cfg, Loader=yaml.FullLoader)  # 用load方法转字典
+        return cfg_dict
 
     @staticmethod
     def html_to_json(html):
@@ -54,6 +66,37 @@ class OALogin(object):
         class_url = self.base_class_url + class_url
         return class_url
 
+    # 防止网络不好，重新下载
+    def auto_down(self, url, filename):
+        try:
+            request.urlretrieve(url, filename)
+        except request.ContentTooShortError:
+            print('Network conditions is not good.Reloading.')
+            # 递归
+            self.auto_down(url, filename)
+
+    # 下载
+    def down_load_mp4(self):
+        list_mp4 = self.login_auto()
+
+        # 如果是加载json文件后下载,用下面这几句
+        # print(os.path.dirname(__file__))
+        # with open('class_json_file.json', 'r', encoding='utf-8') as fp:
+        #     list_mp4 = json.load(fp)
+        # print(type(list_mp4))
+
+        if list_mp4 is None:
+            print('mp4列表获取失败...')
+        else:
+            for lis in list_mp4:
+                cn_name = lis["cn_name"]
+                file_name = r"D:\tiangong_movie\%s.mp4" % cn_name
+                begin_msg = 'download [%s] bigin ....' % cn_name
+                end_msg = '[%s] download complete ' % cn_name
+                print(begin_msg)
+                request.urlretrieve(lis["mp4_url"], file_name)
+                print(end_msg)
+
     def login_auto(self):
         # 第1步：打开浏览器
         browser = webdriver.Chrome(executable_path=self.driver_path)
@@ -62,10 +105,14 @@ class OALogin(object):
 
         # 第2步：输入用户名、密码、验证码
         # ## 2.1 查找[用户名]的输入框,并输入[用户名]
-        browser.find_element_by_id('login').send_keys('###')
+        user_info = OALogin.read_yaml_file()
+        # print(user_info)
+        # pass
+
+        browser.find_element_by_id('login').send_keys(user_info['username'])
         time.sleep(1)
         # ## 2.2 查找[密码]的输入框,并输入[密码]
-        browser.find_element_by_id('password').send_keys('####')
+        browser.find_element_by_id('password').send_keys(user_info['password'])
         time.sleep(1)
 
         # 第3步：保存图片，识别图片，输入识别码
@@ -172,40 +219,10 @@ class OALogin(object):
                     time.sleep(4)
                 return mp4_path_list
 
-    # 防止网络不好，重新下载
-    def auto_down(self, url, filename):
-        try:
-            request.urlretrieve(url, filename)
-        except request.ContentTooShortError:
-            print('Network conditions is not good.Reloading.')
-            # 递归
-            self.auto_down(url, filename)
-
-    # 下载
-    def down_load_mp4(self):
-        list_mp4 = self.login_auto()
-
-        # 如果是加载json文件后下载,用下面这几句
-        # print(os.path.dirname(__file__))
-        # with open('class_json_file.json', 'r', encoding='utf-8') as fp:
-        #     list_mp4 = json.load(fp)
-        # print(type(list_mp4))
-
-        if list_mp4 is None:
-            print('mp4列表获取失败...')
-        else:
-            for lis in list_mp4:
-                cn_name = lis["cn_name"]
-                file_name = r"D:\tiangong_movie\%s.mp4" % cn_name
-                begin_msg = 'download [%s] bigin ....' % cn_name
-                end_msg = '[%s] download complete ' % cn_name
-                print(begin_msg)
-                request.urlretrieve(lis["mp4_url"], file_name)
-                print(end_msg)
-
 
 if __name__ == '__main__':
     userLogin = OALogin()
-    # userLogin.down_load_mp4()
-    ocr = userLogin.ocr_identification_code()
-    print(ocr)
+    userLogin.down_load_mp4()
+    # 测试识别
+    # ocr = userLogin.ocr_identification_code()
+    # print(ocr)
