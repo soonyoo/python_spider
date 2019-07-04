@@ -41,6 +41,7 @@
 
 
 # 方法3：使用 mongodb存储
+"""
 from pymongo import MongoClient
 from scrapy import log
 
@@ -65,4 +66,28 @@ class QsbkPipeline(object):
         # 关闭连接
         self.conn.close()
         print('爬虫结束。。。。')
+
+"""
+# 方法4：使用 CSV 存储
+import os
+# import csv
+from scrapy.exporters import CsvItemExporter
+
+
+class QsbkPipeline(object):
+    def open_spider(self, spider):
+        print("开始输出CSV文件")
+        store_file = os.path.dirname(__file__) + '/spiders/qtw.csv'
+        self.file = open(store_file, "wb")
+        self.exporter = CsvItemExporter(self.file, fields_to_export=["author", "content"])
+        self.exporter.start_exporting()
+
+    def process_item(self, item, spider):
+        self.exporter.export_item(item)
+        return item
+
+    def close_spider(self, spider):
+        self.exporter.finish_exporting()
+        self.file.close()
+        print("结束输出CSV文件")
 

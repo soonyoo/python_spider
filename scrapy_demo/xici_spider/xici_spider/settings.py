@@ -67,7 +67,9 @@ DEFAULT_REQUEST_HEADERS = {
 # Configure item pipelines
 # See https://doc.scrapy.org/en/latest/topics/item-pipeline.html
 ITEM_PIPELINES = {
-   'xici_spider.pipelines.XiciSpiderPipeline': 300,
+   # 'xici_spider.pipelines.XiciSpiderPipeline': 300,
+    'xici_spider.pipelines_csv.XiciSpiderPipelineToCSV': 300,
+
 }
 
 # Enable and configure the AutoThrottle extension (disabled by default)

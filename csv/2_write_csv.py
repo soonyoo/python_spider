@@ -1,6 +1,11 @@
 # coding = utf-8
 import csv
 
+"""
+生成csv文件方法：
+scrapy框架，参见：D:\python\python_spider\scrapy_demo\xici_spider\xici_spider\pipelines_csv.py
+"""
+
 
 class OptCsv(object):
     @staticmethod
