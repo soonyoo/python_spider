@@ -16,5 +16,7 @@ class MusicPlayer(object):
 
 
 if __name__ == '__main__':
-    player = MusicPlayer()
-    print(player)
+    player1 = MusicPlayer()
+    print(player1)
+    player2 = MusicPlayer()
+    print(player2)
