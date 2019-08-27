@@ -2,6 +2,7 @@
 
 import requests
 from lxml import etree
+import csv
 
 
 class TangshiXpath:
@@ -17,8 +18,8 @@ class TangshiXpath:
                         ' Chrome/71.0.3578.98 Safari/537.36'}
 
     # 从URL获取网页源码
-    def get_html_from_url(self):
-        response = requests.get(self.url, headers=self.headers)
+    def get_html_from_url(self, url):
+        response = requests.get(url, headers=self.headers)
         # print(response.text)
         return response.text
 
@@ -40,22 +41,41 @@ class TangshiXpath:
         # self.current_poem["author"] = spans.xpath('.//text()')
         # print(self.current_poem)
 
-        html = etree.HTML(self.get_html_from_url())
+        html = etree.HTML(self.get_html_from_url(self.url))
         spans = html.xpath("//div[@class='typecont']//span")
         for span in spans:
             self.current_poem["author"] = TangshiXpath.null_list(span.xpath('./text()'))
             self.current_poem["title"] = span.xpath('./a/text()')[0]
             self.current_poem['url'] = span.xpath('./a/@href')[0]
+            self.current_poem['content'] = self.parse_tangshi_content(self.current_poem['url'])
             self.tangshi_list.append(self.current_poem)
             self.current_poem = {}
         return self.tangshi_list
 
+    # 根据url获取诗的具体内容
+    def parse_tangshi_content(self, url):
+        html = etree.HTML(self.get_html_from_url(url))
+        tangshi_content_divs = html.xpath("//div[@class='contson']")[0].xpath('.//text()')
+        return ''.join(tangshi_content_divs)
+
+    # 保存到csv文件
+    @staticmethod
+    def write_2_csv(header, datas, csv_filename):
+        with open(csv_filename, 'w', encoding='utf_8_sig', newline='') as fp:
+            writer = csv.DictWriter(fp, header)
+            writer.writeheader()
+            writer.writerows(datas)
+
 
 if __name__ == '__main__':
     tangshi = TangshiXpath()
-    # tangshi.tangshi_text()
-    lists = tangshi.parse_tangshi_text()
-    # print(lists)
-    for lis in lists:
-        print(lis)
+    csv_header = ['author', 'title', 'url', 'content']
+    csv_datas = lists = tangshi.parse_tangshi_text()
+    tangshi.write_2_csv(csv_header, csv_datas, 'tangshi300.csv')
+
+    # lists = tangshi.parse_tangshi_text()
+    # for lis in lists:
+    #     print(lis)
+    # txt = tangshi.parse_tangshi_content('https://so.gushiwen.org/shiwenv_45c396367f59.aspx')
+    # print(txt)
 
