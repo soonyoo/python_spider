@@ -31,10 +31,10 @@ def say_sorry():
 
 
 if __name__ == '__main__':
-    # main()
-    for i in range(5):
-        task3 = threading.Thread(target=say_sorry)
-        task3.start()
+    main()
+    # for i in range(5):
+    #     task3 = threading.Thread(target=say_sorry)
+    #     task3.start()
 
 
 
