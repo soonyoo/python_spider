@@ -11,7 +11,7 @@ class MySQLUtil(object):
         yaml_file = os.path.join(config_file_path, 'conf.yml')
         self.cols = None
         self.table_name = None
-        self.db_charset = 'utf8'
+
         self.rowcount = 0
         with open(yaml_file, 'r', encoding='utf-8') as fp:
             content = fp.read()
@@ -21,6 +21,7 @@ class MySQLUtil(object):
             self.db_user = conf['mysql-db']['db_user']
             self.db_password = conf['mysql-db']['db_password']
             self.db_name = conf['mysql-db']['db_name']
+            self.db_charset = conf['mysql-db']['db_charset']
 
     def get_version(self):
         """获取mysql的版本信息
@@ -30,8 +31,8 @@ class MySQLUtil(object):
         :return:
         """
         conn = pymysql.connect(self.db_url, self.db_user, self.db_password, self.db_name, charset=self.db_charset)
-        cursor = conn.cursor()
         sql = "SELECT VERSION()"
+        cursor = conn.cursor()
         cursor.execute(sql)
         data = cursor.fetchone()
         cursor.close()

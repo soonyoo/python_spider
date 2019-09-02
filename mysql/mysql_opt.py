@@ -63,7 +63,7 @@ if __name__ == '__main__':
     table_name = 'employee'
     set_condition = ' user_name = %s, age = %s '
     where_codition = ' id = %s '
-    params = ['zhangsan', 29, '240c2e24-cd58-11e9-9568-8c1645e715ad']
+    params = ['小王1', 19, 'e0ed3294-cd38-11e9-ba1a-8c1645e715ad']
     row_count = util.curd_update(table_name, set_condition, where_codition, params)
     print('成功更新 {} 条记录! '.format(row_count))
 

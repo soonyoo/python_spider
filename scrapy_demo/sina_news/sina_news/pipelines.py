@@ -22,6 +22,7 @@ class SinaNewsPipeline(object):
         self._sql = None
 
     def process_item(self, item, spider):
+        print('are you ok ? ')
         self.cursor.execute(self.sql, (item['title'], item['pub_time'], item['data_source'], item['content'], item['show_author'], item['keywords'], item['url_source']))
         self.conn.commit()
         return item

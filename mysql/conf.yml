@@ -4,3 +4,5 @@ mysql-db:
   db_user: 'root'
   db_password: 'QAZ123qaz#'
   db_name: 'sina_news'
+  db_charset: 'utf8'
+  db_port: 3306
