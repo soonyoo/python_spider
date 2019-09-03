@@ -11,7 +11,8 @@ import yaml
 import os
 import importlib
 import uuid
-import datetime,time
+import datetime
+import time
 
 
 class DbPoolUtil(object):
@@ -31,7 +32,26 @@ class DbPoolUtil(object):
                 'charset': self.__DBConfig['db_charset']
             }
             db_creator = importlib.import_module("pymysql")
-            self.__pool = PooledDB(db_creator, maxcached=50, maxconnections=1000, maxusage=1000, **config)
+            """PooledDB
+            :param creator: 使用连接数据库的模块(mysql,sqlserver,oracle,hbase)
+            :param mincached: 初始化时，连接池中至少创建的空闲的连接，0表示不创建
+            :param maxcached: 连接池中最多闲置的连接，0和NONE不限制，
+            :param maxshared: 连接池中最多共享连接数量， 0和NONE表示全部共享，PS:无用,
+                              因为pymysql和mysqldb的模块的threadsafety都为1，所有制无论设置为多少，
+                              maxcached永远为0，所以永远是所有连接都共享。
+            :param maxconnections: 连接池允许的最大连接数(0和NONE表示不限制)
+            :param blocking: 连接池中如果没有可用连接后，是否阻塞等待，True，等待，False 不等待
+            :param maxusage: 一个连接最多被重复使用的次数，None表示无限制
+            :param setsession: 开始会话前执行的命令列表。如：["set datestyle to ...", "set time zone ..."]
+            :param reset: how connections should be reset when returned to the pool
+                        (False or None to rollback transcations started with begin(),
+                        True to always issue a rollback for safety's sake)
+            :param failures: an optional exception class or a tuple of exception classes
+                        for which the connection failover mechanism shall be applied,
+                        if the default (OperationalError, InternalError) is not adequate
+            :param ping: ping MySQL服务端，检查是否服务可用。0 = None = never,1 = default = whenever it is requested, 2 = when a cursor is created,
+            """
+            self.__pool = PooledDB(db_creator, maxcached=50, maxconnections=100, blocking=True, maxusage=None, **config)
 
     def read_yaml(self, file_name):
         config_file_path = os.path.dirname(__file__)
