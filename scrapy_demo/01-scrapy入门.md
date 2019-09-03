@@ -8,6 +8,8 @@
 
 > Scrapy 使用了 Twisted`['twɪstɪd]`(其主要对手是Tornado)异步网络框架来处理网络通讯，可以加快我们的下载速度，不用自己去实现异步框架，并且包含了各种中间件接口，可以灵活的完成各种需求。
 
+scrapy官方文档：https://docs.scrapy.org/en/latest/
+
 ## 2. scrapy 框架模块功能 (绿线是数据流向)
 
 ![scrapy_all](./images/scrapy_all.png)
@@ -108,7 +110,7 @@ D:\python\pycharmDemo\scrapy>scrapy startproject qsbk
 
 1, ROBOTSTXT_OBEY
 ```python
-# 默认True，改为False
+# 默认True，改为False(https://www.taobao.com/robots.txt)
 ROBOTSTXT_OBEY = False
 ```
 2, DEFAULT_REQUEST_HEADERS

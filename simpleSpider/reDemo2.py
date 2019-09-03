@@ -10,31 +10,32 @@ import re
 """
 
 # .的使用例子
-a = 'xy12xy3'
-b = re.findall('x.', a)
-print(b)
+# a = 'xy12xy3'
+# b = re.findall('x.', a)
+# print(b)
 
 # *的使用例子
-a = 'xy12xy3'
-b = re.findall('x*', a)
-print(b)
+# a = 'xy12xy3'
+# b = re.findall('x*', a)
+# print(b)
 
 # ?的使用例子
-a = 'xy12xy3'
-b = re.findall('x?', a)
-print(b)
+# a = 'xy12xy3'
+# b = re.findall('x?', a)
+# print(b)
 
 # .* 使用例子
-a = 'laodhfejzuwxyzixyzladivhwanxyzlovexyzawidhlxyzpythonxyzasdwia'
-b = re.findall('xyz.*xyz', a)
-print(b)
+# a = 'laodhfejzuwxyzixyzladivhwanxyzlovexyzawidhlxyzpythonxyzasdwia'
+# b = re.findall('xyz.*xyz', a)
+# print(b)
 
 # .？使用例子
-a = 'laodhfejzuwxyzixyzladivhwanxyzlovexyzawidhlxyzpythonxyzasdwia'
-b = re.findall('xyz.*?xyz', a)
-print(b)
+# a = 'laodhfejzuwxyzixyzladivhwanxyzlovexyzawidhlxyzpythonxyzasdwia'
+# b = re.findall('xyz.*?xyz', a)
+# print(b)
 
 # ()使用例子
+print('()使用例子')
 a = 'laodhfejzuwxyzixyzladivhwanxyzlovexyzawidhlxyzpythonxyzasdwia'
 b = re.findall('xyz(.*?)xyz', a)
 print(b)
@@ -56,3 +57,7 @@ print(b)
 总结：匹配字符使用(.*?),匹配数字使用(\d+)
 --------------------------------
 """
+
+aa = (1,2,3)
+bb = re.findall('((.*?))', a, re.S)
+print(bb)
