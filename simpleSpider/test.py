@@ -6,6 +6,7 @@ import time
 import uuid
 from lxml import etree
 from bs4 import BeautifulSoup
+import os
 
 class Test(object):
     def __init__(self):
@@ -88,9 +89,13 @@ class Test(object):
 
 
 if __name__ == '__main__':
-    list1 = [1, 2, 3, 4, 5, 6]
-    for i, val in enumerate(list1):
-        print("序号：", i, "  值：", val)
+    path = os.path.dirname(__file__)
+    path = os.path.join(path,'images')
+    print(path)
+
+    # list1 = [1, 2, 3, 4, 5, 6]
+    # for i, val in enumerate(list1):
+    #     print("序号：", i, "  值：", val)
 
     # html = Test.get_html()
     # dict1 = Test.html_to_json(html)
