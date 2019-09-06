@@ -10,18 +10,14 @@ from DBUtils.PooledDB import PooledDB
 import yaml
 import os
 import importlib
-import uuid
-import datetime
-import time
 
 
 class DbPoolUtil(object):
-
     __DBConfig = dict()
 
     def __init__(self, db_type):
         self.__db_type = db_type
-        self.__DBConfig = self.read_yaml('conf.yml')
+        self.__DBConfig = self.read_yaml('mysql_conf.yml')
         if self.__db_type == "mysql":
             config = {
                 'host': self.__DBConfig['db_url'],
@@ -259,64 +255,3 @@ class DbPoolUtil(object):
             print('异常信息:' + str(e))
         cur.close()
         conn.close()
-
-
-if __name__ == '__main__':
-    db_util = DbPoolUtil('mysql')
-
-    """ 1.1 查询返回多条记录
-    1.1 execute_query 的使用；
-    1.2 元组中只包含一个元素时，需要在元素后面添加逗号：
-        in_args = ('小王1',)
-    
-    """
-    # in_args = ('小李',)
-    # in_sql = "select * from employee where user_name = %s"
-    # lists = db_util.execute_query(in_sql, False, in_args)
-    # for lis in lists:
-    #     print(lis)
-
-    """1.2 查询单条记录
-    
-    execute_query_single
-    
-    """
-    # in_args = ('小李',)
-    # in_sql = "select * from employee where user_name = %s"
-    # lists = db_util.execute_query_single(in_sql, False, in_args)
-    # print(lists)
-
-    """2.1 插入记录测试
-    单条记录插入
-    execute_iud(self, sql, args=()):
-    """
-    # in_sql = "insert into employee(id, user_name, age, email, gender, income) values (%s,%s,%s,%s,%s,%s)"
-    # in_args = (str(uuid.uuid1()), '老王8', 88, 'laowang8@chinaunicom.cn', 1, 1000)
-    # row_count = db_util.execute_iud(in_sql, in_args)
-    # print('成功插入 {} 条记录! '.format(row_count))
-
-    """2.1 插入记录测试
-    多条记录一起插入
-    execute_many_iud
-    """
-    value_list = list()
-    nowTime = datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S')
-    value_list.append([str(uuid.uuid1()), 'zhangsan', 18, 'zhangsan@chinaunicom.cn', 0, 7000, nowTime])
-    time.sleep(0.1)
-    nowTime = datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S')
-    value_list.append([str(uuid.uuid1()), 'lishi', 22, 'lishi@chinaunicom.cn', 1, 4000, nowTime])
-    time.sleep(0.1)
-    nowTime = datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S')
-    value_list.append([str(uuid.uuid1()), 'wangwu', 68, 'wangwu@chinaunicom.cn', 0, 3200, nowTime])
-
-    in_sql = "insert into employee(id, user_name, age, email, gender, income,create_date) values (%s,%s,%s,%s,%s,%s,%s)"
-    row_count = db_util.execute_many_iud(in_sql, value_list)
-    print('成功插入 {} 条记录! '.format(row_count))
-    print(value_list)
-
-
-
-
-
-
-

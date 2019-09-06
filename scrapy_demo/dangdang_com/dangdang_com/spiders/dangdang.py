@@ -19,10 +19,9 @@ class DangdangSpider(scrapy.Spider):
         # 书名
         book_name = response.xpath("//div[@id='product_info']/div[@class='name_info']/h1/@title").get()
         # 描述
-        desc = response.xpath("//div[@id='product_info']/div[@class='name_info']/h2/span/@title").get()
-        desc = ''.join(desc.split())
+        desc = response.xpath("//div[@id='product_info']/div[@class='name_info']/h2/span/@title").get().strip()
         # 作者
-        author = ''.join(response.xpath("//span[@id='author']//text()").getall())
+        author = ''.join(response.xpath("//span[@id='author']//text()").getall()).split('作者:')[-1]
         # 出版社
         pub = response.xpath("//div[@class='messbox_info']/span[2]/a/text()").get()
         # 出版时间
