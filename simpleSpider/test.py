@@ -7,6 +7,7 @@ import uuid
 from lxml import etree
 from bs4 import BeautifulSoup
 import os
+import re
 
 class Test(object):
     def __init__(self):
@@ -89,9 +90,14 @@ class Test(object):
 
 
 if __name__ == '__main__':
-    path = os.path.dirname(__file__)
-    path = os.path.join(path,'images')
-    print(path)
+
+    text = "10"
+    ret = re.findall(r"^[1-9]\d?$|100$", text)
+    if  len(ret)>0:
+        print(ret)
+    else:
+        print('...不符合...')
+
 
     # list1 = [1, 2, 3, 4, 5, 6]
     # for i, val in enumerate(list1):
