@@ -6,6 +6,8 @@
 # See: https://doc.scrapy.org/en/latest/topics/item-pipeline.html
 import os
 from urllib import request
+from scrapy.pipelines.images import ImagesPipeline
+from car_beauty import settings
 
 class CarBeautyPipeline(object):
     def __init__(self):
@@ -34,13 +36,4 @@ class CarBeautyPipeline(object):
             request.urlretrieve(img_url, os.path.join(full_path, img_name))
         except Exception as ex:
             print(ex)
-
-
-
-
-
-
-
-
-
         return item
