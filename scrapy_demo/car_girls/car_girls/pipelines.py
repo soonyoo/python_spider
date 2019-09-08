@@ -29,19 +29,25 @@ class CarGirlsImagesPipeline(ImagesPipeline):
         images_store = settings.IMAGES_STORE
 
         # 注意不要使用拼字符串，使用os.path.join
-        if not os.path.exists(images_store):
-            os.mkdir(images_store)
-
-        brand_path = os.path.join(images_store,brand+images_num)
-        if not os.path.exists(brand_path):
-            os.mkdir(brand_path)
-
-        girls_path = os.path.join(brand_path, girls_name)
+        # 1级目录
+        # if not os.path.exists(images_store):
+        #     os.mkdir(images_store)
+        # 2级目录
+        # brand_path = os.path.join(images_store,brand+images_num)
+        # if not os.path.exists(brand_path):
+        #     os.mkdir(brand_path)
+        # 3级目录
+        # girls_path = os.path.join(brand_path, girls_name)
+        # if not os.path.exists(girls_path):
+        #     os.mkdir(girls_path)
+        # 多级目录创建
+        girls_path = os.path.join(images_store, brand+images_num, girls_name)
         if not os.path.exists(girls_path):
-            os.mkdir(girls_path)
+            os.makedirs(girls_path)
 
+        # 默认文件路径"full/xxx.jpg"
         # image_name = path.replace("full/", "")
-        image_name = path.rsplit('/')[-1]
+        image_name = path.rsplit('/',1)[-1]
         image_path = os.path.join(girls_path, image_name)
         # print('-'*30)
         # print(image_path)
