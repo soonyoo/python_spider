@@ -104,6 +104,42 @@ pip install -r requirements.txt
 ## 4.3 添加环境
 ![009_setting](media/20190529173311.png)
 
+# ubuntu 虚拟目录创建
+#### 一.安装虚拟命令：
+```bash
+pip install virtualenv
+pip install virtualenvwrapper
+```
+#### 二、修改环境变量
+##### 1.创建目录用来存放虚拟环境
+`mkdir $HOME/.virtualenvs`
+
+##### 2.打开~/.bashrc文件，并添加如下：
+```bash
+export WORKON_HOME=$HOME/.virtualenvs
+source /usr/local/bin/virtualenvwrapper.sh
+```
+##### 3. 运行`source ~/.bashrc`
+如果：source ~/.bashrc 后系统报错提示：
+```bash
+bash: /usr/local/bin/virtualenvwrapper.sh: 没有那个文件或目录
+```
+解决方案：查找virtualenvwrapper.sh所在的位置
+```bash
+find / -name 'virtualenvwrapper.sh'
+。。。。
+find: ‘/proc/26914/fdinfo’: 权限不够
+find: ‘/proc/26914/ns’: 权限不够
+find: ‘/boot/efi’: 权限不够
+find: ‘/home/uniryan/.cache/dconf’: 权限不够
+find: ‘/home/uniryan/.config/configstore’: 权限不够
+/home/uniryan/anaconda3/bin/virtualenvwrapper.sh
+```
+
+
+
+
+
 
 
 >参考文章：https://blog.csdn.net/sinat_41898105/article/details/80714974
